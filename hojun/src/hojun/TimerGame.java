@@ -68,7 +68,7 @@ public class TimerGame extends JFrame {
         gameTimer.start();
     }
 
-    private void stopGame() { // ㅇㅇㅇㅇ
+    private void stopGame() {
         if (gameTimer != null && gameTimer.isRunning()) {
             gameTimer.stop();
             long stopTime = System.currentTimeMillis();
