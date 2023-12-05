@@ -14,9 +14,11 @@ class GradeDodger ---> extends JPanel, implements ActionListener, KeyListener
 	player (Player)
 	fs (List<FGrade>)
 	as (List<AGrade>)
-	spawner (Timer)
-	timer (Timer)
-	score (int)
+	gameTimer (Timer) : main timer
+	timerCounter (int) : counter for spawning a, f
+	startTime (long) : long variable for gametime calc. --> getScore()
+	endTime (long)
+	point (int)       : gamepoint ( score -> point ) changed 1205
 	fImage (Image)
 	aImage (Image)
 - methods : 
