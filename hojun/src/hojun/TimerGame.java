@@ -77,10 +77,18 @@ public class TimerGame extends JFrame {
 
             if (elapsedTime >= 8.8 && elapsedTime <= 9.0) {
                 JOptionPane.showMessageDialog(TimerGame.this, "알람 설정에 성공했습니다!\n총 플레이 타임: " + String.format("%.1f", totalPlaytime) + " 초");
+                
+                getContentPane().remove(centerPanel);
+                revalidate();
+                repaint();
             } else {
                 JOptionPane.showMessageDialog(TimerGame.this, "시간 내에 멈추지 못했습니다!");
             }
         }
+    }
+    
+    public double getScore() {
+        return totalPlaytime;
     }
 
     public static void main(String[] args) {
