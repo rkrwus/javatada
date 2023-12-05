@@ -19,7 +19,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	private int timerCounter;  // 카운터
 	private long startTime;    // 시간 계산용
 	private long endTime;
-	private int score;
+	private int point;
 	private Image fImage;
 	private Image aImage;
 	
@@ -29,7 +29,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		as = new ArrayList<>();
 		gameTimer = new Timer(10, this); // 10 millisec 딜레이
 		timerCounter = 0;
-		score = 0;
+		point = 0;
 		
 		loadImages();
 		
@@ -52,7 +52,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		return this.gameTimer;
 	}
 	
-	public int getScore() {
+	public int getscore() {
 		long scoreTime = endTime - startTime;
 		return (int) scoreTime;
 	}
@@ -97,8 +97,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		for(AGrade a : as) {
 			if(playerBounds.intersects(a)) {
 				as.remove(a);
-				if(score < 100)
-				score +=10;
+				if(point < 100)
+				point +=10;
 				break;
 			}
 		}
@@ -205,7 +205,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
         }
         
         g2d.setColor(Color.green);
-        g2d.drawString("Score : " + score, 30, 50);
+        g2d.drawString("point : " + point, 30, 50);
     }
     
     private void clearPanel() {   
