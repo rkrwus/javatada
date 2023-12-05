@@ -1,0 +1,26 @@
+Class Agrade & Fgrade ---> extends Rectangle
+- variable : x, y, width, height (all int)
+
+class Player ---> extends Rectangle
+- variable : x, y, width, height, speed (all int)
+- methods : 
+	moveLeft() : move left (by speed)
+	moveRight() : move right (by speed)
+
+class GradeDodger ---> extends JPanel, implements ActionListener, KeyListener
+- variable :
+	WIDTH (int)
+	HEIGHT (int)
+	player (Player)
+	fs (List<FGrade>)
+	as (List<AGrade>)
+	spawner (Timer)
+	timer (Timer)
+	score (int)
+	fImage (Image)
+	aImage (Image)
+- methods : 
+	GradeDodger() : constructor
+	getWidth() : get WIDTH
+	getHeight() : get HEIGHT
+	getScore() : get timer ----> incomplete
