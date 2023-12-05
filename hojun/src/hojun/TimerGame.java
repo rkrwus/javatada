@@ -5,7 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class TimerGame extends JFrame {
-    private JPanel centerPanel; // 시간을 감싸는 JPanel
+    private JPanel startPanel;
+    private JPanel gamePanel;
     private JLabel timerLabel;
     private JButton startButton;
     private JButton stopButton;
@@ -15,28 +16,16 @@ public class TimerGame extends JFrame {
     private double totalPlaytime;
 
     public TimerGame() {
-        setTitle("타이머 게임");
-        setSize(400, 300); // 크기 조정
+        setTitle("알람을 맞춰라!");
+        setSize(2560, 1440);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // 전체 컨테이너에 BorderLayout 설정
-        setLayout(new BorderLayout());
+        ImageIcon loadingImageIcon = new ImageIcon("images/loading1.jpg");
+        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(1536, 864, Image.SCALE_DEFAULT));
 
-        centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // 중앙 정렬된 FlowLayout
-        timerLabel = new JLabel("0");
-        timerLabel.setFont(new Font("TimesRoman", Font.ITALIC, 50));
-        centerPanel.add(timerLabel);
+        JLabel loadingLabel = new JLabel(loadingImageIcon);
 
-        add(centerPanel, BorderLayout.NORTH); // 중앙 패널을 중앙에 배치
-
-        startButton = new JButton("시작");
-        startButton.setPreferredSize(new Dimension(100, 200));
-        add(startButton, BorderLayout.WEST); 
-
-        stopButton = new JButton("스탑");
-        stopButton.setPreferredSize(new Dimension(100, 200));
-        add(stopButton, BorderLayout.EAST);
-
+        startButton = new JButton("시작하기");
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -44,24 +33,57 @@ public class TimerGame extends JFrame {
             }
         });
 
+        startPanel = new JPanel(new BorderLayout());
+        startPanel.add(loadingLabel, BorderLayout.CENTER);
+        startPanel.add(startButton, BorderLayout.SOUTH);
+
+        gamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        timerLabel = new JLabel("0");
+        timerLabel.setFont(new Font("TimesRoman", Font.ITALIC, 50));
+        gamePanel.add(timerLabel);
+
+        stopButton = new JButton("스탑");
+        stopButton.setPreferredSize(new Dimension(100, 50));
+        gamePanel.add(stopButton);
+
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 stopGame();
             }
         });
+
+        setLayout(new BorderLayout());
+        add(startPanel, BorderLayout.CENTER);
     }
 
     private void startGame() {
-        timerLabel.setText("0");
+        setContentPane(gamePanel);
+        gamePanel.removeAll();
+        revalidate();
+
+        ImageIcon gameImageIcon = new ImageIcon("images/GameImage.jpg");
+        gameImageIcon = new ImageIcon(gameImageIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT));
+
+        JLabel gameImageLabel = new JLabel(gameImageIcon);
+        gameImageLabel.setBounds(0, 0, 1280, 720);
+        gamePanel.add(gameImageLabel);
+
+        timerLabel.setBounds(100, 100, 200, 50);
+        gamePanel.add(timerLabel);
+
+        stopButton.setBounds(150, 200, 100, 50);
+        gamePanel.add(stopButton);
+
+        
         startTime = System.currentTimeMillis();
 
         gameTimer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 long elapsedTime = System.currentTimeMillis() - startTime;
-                double seconds = elapsedTime / 1000.0; // 밀리초를 초로 변환
-                timerLabel.setText(String.format("%.1f", seconds)); // 소수점 한 자리까지 표시
+                double seconds = elapsedTime / 1000.0;
+                timerLabel.setText(String.format("%.1f", seconds));
             }
         });
 
@@ -72,30 +94,39 @@ public class TimerGame extends JFrame {
         if (gameTimer != null && gameTimer.isRunning()) {
             gameTimer.stop();
             long stopTime = System.currentTimeMillis();
-            double elapsedTime = (stopTime - startTime) / 1000.0; // 밀리초를 초로 변환
+            double elapsedTime = (stopTime - startTime) / 1000.0;
             totalPlaytime += elapsedTime;
 
             if (elapsedTime >= 8.8 && elapsedTime <= 9.0) {
-                JOptionPane.showMessageDialog(TimerGame.this, "알람 설정에 성공했습니다!\n총 플레이 타임: " + String.format("%.1f", totalPlaytime) + " 초");
-                
-                getContentPane().remove(centerPanel);
+                JOptionPane.showMessageDialog(this, "알람 설정에 성공했습니다!\n총 플레이 타임: " + String.format("%.1f", totalPlaytime) + " 초");
+
+                // If the time is within the allowed range, keep the game panel active
+                setContentPane(gamePanel);
                 revalidate();
-                repaint();
             } else {
-                JOptionPane.showMessageDialog(TimerGame.this, "시간 내에 멈추지 못했습니다!");
+                int option = JOptionPane.showConfirmDialog(this, "시간 내에 멈추지 못했습니다!\n재시도 하시겠습니까?", "Retry", JOptionPane.YES_NO_OPTION);
+
+                if (option == JOptionPane.YES_OPTION) {
+                    // Reset game-related variables for the next attempt
+                    startTime = System.currentTimeMillis();
+                    gameTimer.start();
+                } else {
+                    // If the user chooses not to retry, switch back to the start panel
+                    setContentPane(startPanel);
+                    revalidate();
+                }
             }
         }
     }
-    
+
     public double getScore() {
         return totalPlaytime;
     }
 
     public static void main(String[] args) {
-    	TimerGame timerGame = new TimerGame();
-    	timerGame.setVisible(true);
-
+        SwingUtilities.invokeLater(() -> {
+            TimerGame timerGame = new TimerGame();
+            timerGame.setVisible(true);
+        });
     }
 }
-
-
