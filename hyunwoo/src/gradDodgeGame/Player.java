@@ -1,7 +1,7 @@
 package gradDodgeGame;
 
 import java.awt.*;
-
+//speed 변수 조정 통해 player 속도 조절 가능
 class Player extends Rectangle {
     private int speed;
 
