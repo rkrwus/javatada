@@ -8,17 +8,20 @@ import java.util.*;
 
 public class MainSystem {
 	
-	private int totalScore = 100;
+	private int totalScore = 0;
 	public MainSystem() {
 		new StartFrame(this);		
 	}
 	
-//	int convertTimeToScore(int time) {
-////		입력받은 시간이 짧을 수록 높은 점수를 갖도록 환산
-//		int score;
-//
-//		return score;
-//	}
+	int convertTimeToScore(int time) {
+//		입력받은 시간이 짧을 수록 높은 점수를 갖도록 환산
+//		최대 시간을 10분(=600s)로 잡고 점수는 (최대 시간-소요시간)*가중치로 환산, 소요시간이 10분을 초과하는 경우 0점
+		final int MAX_TIME = 600;
+		final int WEIGHT = 12345;
+		
+		int score = (MAX_TIME - time)*WEIGHT;
+		return score;
+	}
 	
 //	void startFirstGame() {
 //		this.totalScore += convertTimeToScore(new FirstGame(this).getTime());
@@ -37,6 +40,8 @@ public class MainSystem {
 //	}
 	
 	void operateRankingSystem() {
+//		test-ing
+		totalScore += convertTimeToScore(480);	// 8분 소요되었다 가정
 		new RankingSystem(this, this.totalScore);
 	}
 	
