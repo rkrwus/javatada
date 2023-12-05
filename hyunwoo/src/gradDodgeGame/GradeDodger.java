@@ -15,17 +15,20 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	private Player player; 
 	private List<FGrade> fs; // (f의 높이 너비 좌표값)의 리스트
 	private List<AGrade> as; // fs 와 동일
-	private Timer spawner;   // f랑 a 스폰시키는 타이머
-	private Timer timer;     // 진짜 타이머
+	private Timer gameTimer;   // 게임타이머
+	private int timerCounter;  // 카운터
+	private long startTime;    // 시간 계산용
+	private long endTime;
 	private int score;
 	private Image fImage;
 	private Image aImage;
 	
 	public GradeDodger() {		
-		player = new Player(WIDTH/2-30, HEIGHT -50, 60, 20, 5);
+		player = new Player(WIDTH/2-30, HEIGHT -50, 60, 20, 7);
 		fs = new ArrayList<>();
 		as = new ArrayList<>();
-		spawner = new Timer(20, this); // 20 millisec 딜레이
+		gameTimer = new Timer(10, this); // 10 millisec 딜레이
+		timerCounter = 0;
 		score = 0;
 		
 		loadImages();
@@ -33,7 +36,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		addKeyListener(this);
 		setFocusable(true);
 		
-		spawner.start();
+		gameTimer.start();
+		startTime = System.currentTimeMillis();
 	}
 	
 	public int getWidth() {
@@ -42,6 +46,15 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	
 	public int getHeight() {
 		return this.HEIGHT;
+	}
+	
+	public Timer getTimer() {
+		return this.gameTimer;
+	}
+	
+	public int getScore() {
+		long scoreTime = endTime - startTime;
+		return (int) scoreTime;
 	}
 	
 	private void spawnF() {
@@ -100,7 +113,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	}
 	
 	private void gameOver() { //////////////////////////////////////// 미완성!!!!!!!!!!!!!!!!!!!!!!!!
-	    spawner.stop();
+	    endTime = System.currentTimeMillis();
+	    gameTimer.stop();
 	    
 	    try{
 	    	JLabel gameOver = new JLabel("!!!GAME OVER!!!");
@@ -128,7 +142,12 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	
 	@Override
     public void actionPerformed(ActionEvent e) {
-        spawnF();
+		timerCounter++;
+		
+		if(timerCounter %50 == 0) {
+			spawnF();
+			spawnA();
+		}
         update();
     }
 	
