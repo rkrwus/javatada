@@ -1,4 +1,4 @@
-package jiwon123;
+package gradDodgeGame;
 
 import javax.swing.*;
 
@@ -10,7 +10,13 @@ import java.io.*;
 import java.util.*;
 
 public class MainSystem extends JFrame {
-
+	
+	GradeDodger game1;
+	GradeDodger game2;
+	GradeDodger game3;
+	private int firstScore;
+	private int secondScore;
+	private int thirdScore;
 	private int totalScore = 0;
 
 	public MainSystem() {
@@ -26,8 +32,38 @@ public class MainSystem extends JFrame {
 	}
 
 	void playFirstGame() {
-		GradeDodger gradeDodger = new GradeDodger();
-		add(gradeDodger);
+		System.out.println("playFirstGame");
+		game1 = new GradeDodger(this);
+		add(game1);
+		System.out.println("playFirstGame __ good");
+	}
+	
+	void playSecondGame() {
+		System.out.println("playSecondGame");
+		game2 = new GradeDodger(this);
+		add(game2);
+		System.out.println("playSecondGame __ good");
+	}
+	
+	void playThirdGame() {
+		game3 = new GradeDodger(this);
+		add(game3);
+	}
+	
+	void getFirstScore() {
+		System.out.println("getFirstScore");
+		firstScore = game1.getScore();
+		System.out.println("getFirstScore __ ok");
+	}
+	
+	void getScondeScore() {
+		System.out.println("getScondeScore");
+		secondScore = game2.getScore();
+		System.out.println("getScondeScore __ ok");
+	}
+	
+	void getThirdScore() {
+		thirdScore = game3.getScore();
 	}
 
 	void replay() {
@@ -80,7 +116,8 @@ public class MainSystem extends JFrame {
 				revalidate();
 				repaint();
 				
-				operateRankingSystem();
+				playFirstGame();
+//				operateRankingSystem();
 			}
 		});
 	}

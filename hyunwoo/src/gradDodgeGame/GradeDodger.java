@@ -14,6 +14,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	
 	public boolean gameOn = false;
 	
+	MainSystem mainSystem;
 	private Player player; 
 	private List<FGrade> fs; // (f의 높이 너비 좌표값)의 리스트
 	private List<AGrade> as; // fs 와 동일
@@ -25,7 +26,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	private Image fImage;
 	private Image aImage;
 	
-	public GradeDodger() {		
+	public GradeDodger(MainSystem mainSystem) {		
+		this.mainSystem = mainSystem;
 		player = new Player(WIDTH/2-30, HEIGHT -50, 60, 20, 7); // 60, 20, 7 - 플레이어 너비 높이 속도
 		fs = new ArrayList<>();
 		as = new ArrayList<>();
@@ -118,6 +120,10 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		}
 	}
 	
+	private void sendScore() {
+		mainSystem.getFirstScore();
+	}
+	
 	private void gameClear() {
 		endTime = System.currentTimeMillis();
 		gameTimer.stop();
@@ -141,6 +147,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	    
 	    System.out.println("clear in " + (endTime - startTime) + " ms");
 	    System.out.println(getScore());
+	    sendScore();
 	    gameOn = false;
 	}
 	
@@ -184,6 +191,9 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	    
 	    System.out.println((endTime - startTime) + " ms");
 	    System.out.println(getScore());
+	    
+	    sendScore();
+	    
 	    gameOn = false;
 
 	    //clearPanel();
@@ -273,6 +283,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
  
         revalidate();
         repaint();
+        
+        mainSystem.playSecondGame();
 	}
 	
 }
