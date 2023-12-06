@@ -14,8 +14,10 @@ public class MakePuzzle extends JPanel {
     private long startTime;
     private long endTime;
     private int timeInSeconds;
-
-    public MakePuzzle() {
+    MainSystem main;
+   
+    public MakePuzzle(MainSystem main) {
+    	this.main = main;
         setLayout(new BorderLayout());
 
         JPanel imagePanel = new JPanel() {
@@ -122,6 +124,7 @@ public class MakePuzzle extends JPanel {
                 if (inputText.equals("교수님사랑합니다")) {
                     checkAnswerAndCalculateTime();
                     JOptionPane.showMessageDialog(null, "정답입니다람쥐.");
+                    main.getThirdScore();
                 } else {
                     JOptionPane.showMessageDialog(null, "틀렸습니다. 다시 시도해주세요.");
                 }
@@ -166,8 +169,9 @@ public class MakePuzzle extends JPanel {
 
         return randomNumbers;
     }
+    
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 JFrame frame = new JFrame("Puzzle");
@@ -177,6 +181,6 @@ public class MakePuzzle extends JPanel {
                 frame.setVisible(true);
             }
         });
-    }
+    } */
 }
 
