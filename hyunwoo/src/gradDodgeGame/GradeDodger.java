@@ -270,7 +270,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
     private void clearPanel() {   
     	setVisible(false);
         removeAll(); // GradDodger의 모든 컴포넌트 삭제.
-
+ 
         revalidate();
         repaint();
 	}
