@@ -1,9 +1,7 @@
 package gradDodgeGame;
 
 import javax.swing.*;
-
 import gradDodgeGame.GradeDodger;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -28,13 +26,18 @@ public class MainSystem extends JFrame {
 		playPanel();
 
 		setVisible(true);
-//		setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 	}
 
 	void playFirstGame() {
 		System.out.println("playFirstGame");
 		game1 = new GradeDodger(this);
 		add(game1);
+		game1.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setFocusable(true);
 		System.out.println("playFirstGame __ good");
 	}
 	
@@ -42,28 +45,40 @@ public class MainSystem extends JFrame {
 		System.out.println("playSecondGame");
 		game2 = new GradeDodger(this);
 		add(game2);
+		game1.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setFocusable(true);
 		System.out.println("playSecondGame __ good");
 	}
 	
 	void playThirdGame() {
 		game3 = new GradeDodger(this);
 		add(game3);
+		game1.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setFocusable(true);
 	}
 	
 	void getFirstScore() {
 		System.out.println("getFirstScore");
 		firstScore = game1.getScore();
-		System.out.println("getFirstScore __ ok");
+		System.out.println("getFirstScore __ ok" + firstScore);
 	}
 	
 	void getScondeScore() {
 		System.out.println("getScondeScore");
 		secondScore = game2.getScore();
-		System.out.println("getScondeScore __ ok");
+		System.out.println("getScondeScore __ ok" + secondScore);
 	}
 	
 	void getThirdScore() {
+		System.out.println("getThirdScore");
 		thirdScore = game3.getScore();
+		System.out.println("getScondeScore __ ok" + thirdScore);
 	}
 
 	void replay() {
