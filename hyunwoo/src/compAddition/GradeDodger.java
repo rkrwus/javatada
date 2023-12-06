@@ -117,7 +117,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		for(FGrade f : fs) {
 			if(playerBounds.intersects(f)) {
 				fs.remove(f);
-				point -= 10;
+				point -= 10; //123
+				break;
 			}
 		}
 	}
