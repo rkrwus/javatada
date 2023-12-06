@@ -25,4 +25,5 @@ class GradeDodger ---> extends JPanel, implements ActionListener, KeyListener
 	GradeDodger() : constructor
 	getWidth() : get WIDTH
 	getHeight() : get HEIGHT
-	getScore() : get timer ----> incomplete
+	getTimer() : 사용 x timer 변수 return
+	getScore() : 게임 시간 int로 return (milli sec)
