@@ -105,7 +105,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		for(AGrade a : as) {
 			if(playerBounds.intersects(a)) {
 				as.remove(a);
-				if(point < 100) {
+				if(point < 90) {
 					point +=10;
 				}else gameClear();
 				break;
@@ -116,7 +116,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		Rectangle playerBounds = player.getBounds();
 		for(FGrade f : fs) {
 			if(playerBounds.intersects(f)) {
-				gameOver();
+				fs.remove(f);
+				point -= 10;
 			}
 		}
 	}
