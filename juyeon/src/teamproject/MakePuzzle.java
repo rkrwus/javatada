@@ -124,7 +124,7 @@ public class MakePuzzle extends JPanel {
                 if (inputText.equals("교수님사랑합니다")) {
                     checkAnswerAndCalculateTime();
                     JOptionPane.showMessageDialog(null, "정답입니다람쥐.");
-                    main.getThirdScore();
+                   main.getThirdScore();
                 } else {
                     JOptionPane.showMessageDialog(null, "틀렸습니다. 다시 시도해주세요.");
                 }
@@ -149,7 +149,7 @@ public class MakePuzzle extends JPanel {
         timeInSeconds = (int) (timeTaken / 1000);
     }
 
-    private int getScore() {
+    public int getScore() {
         return timeInSeconds;
     }
 
@@ -171,7 +171,7 @@ public class MakePuzzle extends JPanel {
     }
     
 
-    /*public static void main(String[] args) {
+   /* public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 JFrame frame = new JFrame("Puzzle");
