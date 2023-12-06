@@ -18,8 +18,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	private Timer gameTimer;   // 게임타이머
 	private int timerCounter;  // 카운터
 	private long startTime;    // 시간 계산용
-	private long endTime;
-	private int point;
+	private long endTime;      // ,,
+	private int point;         // 게임 내부 포인트 --> clear 기준 정하기용
 	private Image fImage;
 	private Image aImage;
 	
@@ -32,6 +32,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		point = 0;
 		
 		loadImages();
+		
+		setBackground(Color.GRAY);
 		
 		addKeyListener(this);
 		setFocusable(true);
@@ -97,8 +99,9 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		for(AGrade a : as) {
 			if(playerBounds.intersects(a)) {
 				as.remove(a);
-				if(point < 100)
-				point +=10;
+				if(point < 100) {
+					point +=10;
+				}else gameClear();
 				break;
 			}
 		}
@@ -112,22 +115,71 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		}
 	}
 	
-	private void gameOver() { //////////////////////////////////////// 미완성!!!!!!!!!!!!!!!!!!!!!!!!
+	private void gameClear() {
+		endTime = System.currentTimeMillis();
+		gameTimer.stop();
+		
+		JLabel gameOverLabel = new JLabel("!!!GAME CLEAR!!!");
+	    Font font = new Font("Arial", Font.BOLD, 40);
+	    gameOverLabel.setFont(font);
+	    gameOverLabel.setBounds((WIDTH-400)/2, (HEIGHT-80)/2, 400, 80);
+	    add(gameOverLabel);
+	    repaint();
+
+	    // timer 사용.
+	    Timer delayTimer = new Timer(3000, new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            clearPanel();
+	        }
+	    });
+	    delayTimer.setRepeats(false); // 한번만 실행.
+	    delayTimer.start();
+	    
+	    System.out.println("clear in " + (endTime - startTime) + " ms");
+	}
+	
+	private void gameOver() {
 	    endTime = System.currentTimeMillis();
 	    gameTimer.stop();
 	    
+	    /*      ---------------- label 출력 안됌으로 인해 사용 x -----------------------     
 	    try{
-	    	JLabel gameOver = new JLabel("!!!GAME OVER!!!");
+	    	JLabel gameOverLabel = new JLabel("!!!GAME OVER!!!");
 	    	Font font = new Font("Arial", Font.BOLD, 40);
-	        gameOver.setFont(font);
-	        add(gameOver);
+	        gameOverLabel.setFont(font);
+	        gameOverLabel.setBounds((WIDTH-400)/2, (HEIGHT-80)/2, 400, 80);
+	        add(gameOverLabel);
+	        repaint();
+	        
 	    	System.out.println("game over!!");
+	    	
 	    	Thread.sleep(3000);
 	    }catch (InterruptedException e) {
 	    	e.printStackTrace();
 	    }
+	    */
+	    
+	    JLabel gameOverLabel = new JLabel("!!!GAME OVER!!!");
+	    Font font = new Font("Arial", Font.BOLD, 40);
+	    gameOverLabel.setFont(font);
+	    gameOverLabel.setBounds((WIDTH-400)/2, (HEIGHT-80)/2, 400, 80);
+	    add(gameOverLabel);
+	    repaint();
 
-	    clearPanel();
+	    // Thread.sleep 대신 timer 사용.
+	    Timer delayTimer = new Timer(3000, new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            clearPanel();
+	        }
+	    });
+	    delayTimer.setRepeats(false); // 한번만 실행.
+	    delayTimer.start();
+	    
+	    System.out.println((endTime - startTime) + " ms");
+
+	    //clearPanel();
 	}
 	
 	private void update() {
@@ -171,7 +223,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
     
     private void loadImages() {
         try {
-        	 // Print the URLs to the console
+        	 // Print the URLs to the console --> 경로 확인용
             System.out.println("f.png URL: " + getClass().getResource("/f.png"));
             System.out.println("a.png URL: " + getClass().getResource("/a.png"));
         	
@@ -209,11 +261,11 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
     }
     
     private void clearPanel() {   
-	    Container parentContainer = getParent();
-	    parentContainer.remove(this);
-	    
-	    parentContainer.revalidate();
-	    parentContainer.repaint();
+    	setVisible(false);
+        removeAll(); // Remove all components from the panel
+
+        revalidate();
+        repaint();
 	}
 	
 }
