@@ -10,7 +10,9 @@ import java.util.Random;
 
 public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	private static final int WIDTH = 800; // 패널 폭
-	private static final int HEIGHT = 600; // 패널 높이
+	private static final int HEIGHT = 800; // 패널 높이
+	
+	public boolean gameOn = false;
 	
 	private Player player; 
 	private List<FGrade> fs; // (f의 높이 너비 좌표값)의 리스트
@@ -24,12 +26,13 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	private Image aImage;
 	
 	public GradeDodger() {		
-		player = new Player(WIDTH/2-30, HEIGHT -50, 60, 20, 7);
+		player = new Player(WIDTH/2-30, HEIGHT -50, 60, 20, 7); // 60, 20, 7 - 플레이어 너비 높이 속도
 		fs = new ArrayList<>();
 		as = new ArrayList<>();
 		gameTimer = new Timer(10, this); // 10 millisec 딜레이
 		timerCounter = 0;
 		point = 0;
+		gameOn = true;
 		
 		loadImages();
 		
@@ -54,8 +57,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		return this.gameTimer;
 	}
 	
-	public int getscore() {
-		long scoreTime = endTime - startTime;
+	public int getScore() {
+		long scoreTime = (endTime - startTime) / 1000;
 		return (int) scoreTime;
 	}
 	
@@ -137,6 +140,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	    delayTimer.start();
 	    
 	    System.out.println("clear in " + (endTime - startTime) + " ms");
+	    System.out.println(getScore());
+	    gameOn = false;
 	}
 	
 	private void gameOver() {
@@ -178,6 +183,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	    delayTimer.start();
 	    
 	    System.out.println((endTime - startTime) + " ms");
+	    System.out.println(getScore());
+	    gameOn = false;
 
 	    //clearPanel();
 	}
@@ -262,7 +269,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
     
     private void clearPanel() {   
     	setVisible(false);
-        removeAll(); // Remove all components from the panel
+        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
 
         revalidate();
         repaint();

@@ -6,7 +6,7 @@ import javax.swing.*;
 public class Game_main extends JFrame{
 	public Game_main() {
 		setTitle("javaTada games javaTada games javaTada games");
-		setSize(800, 700);
+		setSize(2560, 1440);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		GradeDodger gradeDodger = new GradeDodger();
