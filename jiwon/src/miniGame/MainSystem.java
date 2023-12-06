@@ -8,35 +8,113 @@ import java.util.*;
 
 public class MainSystem extends JFrame {
 
+	TimerGame game1;
+	MiroGame game2;
+	MakePuzzle game3;
+	GradeDodger game4;
+	
+	private int firstScore;
+	private int secondScore;
+	private int thirdScore;
+	private int fourthScore;
 	private int totalScore = 0;
 
 	public MainSystem() {
-		setTitle("Start Game");
+		setTitle("JavaTada JavaTada JavaTada JavaTada JavaTada");
 		setSize(2560, 1440);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		playPanel();
 
 		setVisible(true);
-//		setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	void play() {
-		
+	void playFirstGame() {
+		System.out.println("playFirstGame");
+		game1 = new TimerGame(this);
+		add(game1);
+		game1.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setFocusable(true);
+		System.out.println("playFirstGame __ good");
+	}
+	
+	void playSecondGame() {
+		System.out.println("playSecondGame");
+		game2 = new MiroGame(this);
+		add(game2);
+		game2.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setFocusable(true);
+		System.out.println("playSecondGame __ good");
+	}
+	
+	void playThirdGame() {
+		game3 = new MakePuzzle(this);
+		add(game3);
+		game3.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setFocusable(true);
+		System.out.println("playThirdGame __ good");
+	}
+	
+	void playFourthGame() {
+		game4 = new GradeDodger(this);
+		add(game4);
+		game4.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setFocusable(true);
+		System.out.println("playFourthGame __ good");
+	}
+	
+	void getFirstScore() {
+		System.out.println("getFirstScore");
+		firstScore = game1.getScore();
+		System.out.println("getFirstScore __ ok" + firstScore);
+	}
+	
+	void getSecondScore() {
+		System.out.println("getScondeScore");
+		secondScore = game2.getScore();
+		System.out.println("getSecondScore __ ok" + secondScore);
+	}
+	
+	void getThirdScore() {
+		System.out.println("getThirdScore");
+		thirdScore = game3.getScore();
+		System.out.println("getThirdScore __ ok" + thirdScore);
+	}
+	
+	void getFourthScore() {
+		System.out.println("getFourthScore");
+		fourthScore = game4.getScore();
+		System.out.println("getFourthScore __ ok" + fourthScore);
 	}
 
 	void replay() {
 		this.totalScore = 0;
 		playPanel();
+		setVisible(true);
 	}
-	
+
 	void operateRankingSystem() {
-		RankingSystem rs = new RankingSystem(this, this.totalScore);
-		add(rs);
+		firstScore = convertTimeToScore(firstScore);
+		secondScore = convertTimeToScore(secondScore);
+		thirdScore = convertTimeToScore(thirdScore);
+		fourthScore = convertTimeToScore(fourthScore);
 		
-//		totalScore += convertTimeToScore(480); // 8분 소요되었다 가정
-//		new RankingSystem(this, this.totalScore);
+		totalScore = firstScore + secondScore + thirdScore + fourthScore;
+		new RankingSystem(this, totalScore);
 	}
 
 	int convertTimeToScore(int time) {
@@ -65,18 +143,20 @@ public class MainSystem extends JFrame {
 
 		imgPanel.add(playlb);
 		imgPanel.add(playBtn);
-		imgPanel.setSize(500, 500);
+		imgPanel.setSize(2560, 1440);
 
 		add(imgPanel);
 
 		playBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("play button pressed");
+				
 				remove(imgPanel);
 				revalidate();
 				repaint();
-				
-				operateRankingSystem();
+
+				playFirstGame();
 			}
 		});
 	}
