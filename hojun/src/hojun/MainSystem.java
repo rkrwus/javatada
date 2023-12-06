@@ -10,17 +10,21 @@ public class MainSystem extends JFrame {
 
 	TimerGame game1;
 	MiroGame game2;
+	MakePuzzle game3;
+	GradeDodger game4;
 	
 	private int firstScore;
 	private int secondScore;
+	private int thirdScore;
+	private int fourthScore;
 	private int totalScore = 0;
 
 	public MainSystem() {
 		setTitle("JavaTada JavaTada JavaTada JavaTada JavaTada");
 		setSize(2560, 1440);
+		// setResizable(false);
 		playPanel();
 		setVisible(true);
-		// setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -28,11 +32,11 @@ public class MainSystem extends JFrame {
 		System.out.println("playFirstGame");
 		game1 = new TimerGame(this);
 		add(game1);
-		// game1.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-		// setResizable(false);
-		// setLocationRelativeTo(null);
+		game1.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+		//setResizable(false);
+		//setLocationRelativeTo(null);
 		setVisible(true);
-		setFocusable(true);
+		//setFocusable(true);
 		System.out.println("playFirstGame __ good");
 	}
 	
@@ -48,7 +52,27 @@ public class MainSystem extends JFrame {
 		System.out.println("playSecondGame __ good");
 	}
 	
+	void playThirdGame() {
+		game3 = new MakePuzzle(this);
+		add(game3);
+		game3.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		setFocusable(true);
+		System.out.println("playThirdGame __ good");
+	}
 	
+	void playFourthGame() {
+		game4 = new GradeDodger(this);
+		setLocationRelativeTo(null);
+		add(game4);
+		game4.requestFocus(); 
+		setResizable(false);
+		setVisible(true);
+		setFocusable(true);
+		System.out.println("playFourthGame __ good");
+	}
 	
 	void getFirstScore() {
 		System.out.println("getFirstScore");
@@ -62,7 +86,17 @@ public class MainSystem extends JFrame {
 		System.out.println("getSecondScore __ ok" + secondScore);
 	}
 	
+	void getThirdScore() {
+		System.out.println("getThirdScore");
+		thirdScore = game3.getScore();
+		System.out.println("getThirdScore __ ok" + thirdScore);
+	}
 	
+	void getFourthScore() {
+		System.out.println("getFourthScore");
+		fourthScore = game4.getScore();
+		System.out.println("getFourthScore __ ok" + fourthScore);
+	}
 
 	void replay() {
 		this.totalScore = 0;
@@ -73,8 +107,10 @@ public class MainSystem extends JFrame {
 	void operateRankingSystem() {
 		firstScore = convertTimeToScore(firstScore);
 		secondScore = convertTimeToScore(secondScore);
+		thirdScore = convertTimeToScore(thirdScore);
+		fourthScore = convertTimeToScore(fourthScore);
 		
-		totalScore = firstScore + secondScore;
+		totalScore = firstScore + secondScore + thirdScore + fourthScore;
 		new RankingSystem(this, totalScore);
 	}
 
@@ -91,7 +127,7 @@ public class MainSystem extends JFrame {
 	void playPanel() {
 
 		setLayout(new BorderLayout());
-		ImagePanel imgPanel = new ImagePanel(new ImageIcon("C:\\Temp\\backimg.jpg").getImage());
+		ImagePanel imgPanel = new ImagePanel(new ImageIcon("images/start.jpeg").getImage());
 		imgPanel.setLayout(null);
 
 		JLabel playlb = new JLabel("시작 버튼을 눌러주세요!");
@@ -142,6 +178,8 @@ public class MainSystem extends JFrame {
 
 	public static void main(String[] args) {
 		new MainSystem();
+		BackgroundMusic backgroundMusic = new BackgroundMusic();
+        backgroundMusic.playBackgroundMusic();
 	}
 
 }

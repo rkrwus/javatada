@@ -99,16 +99,22 @@ public class TimerGame extends JPanel {
                 main.playSecondGame();
                 
             } else {
-                int option = JOptionPane.showConfirmDialog(this, "시간 내에 멈추지 못했습니다!\n재시도 하시겠습니까?", "Retry", JOptionPane.YES_NO_OPTION);
+            	Object[] options = {"Retry"};
+            	int option = JOptionPane.showOptionDialog(
+            	        this,
+            	        "시간 내에 멈추지 못했습니다!\n재시도 하세요!",
+            	        "Retry",
+            	        JOptionPane.DEFAULT_OPTION,
+            	        JOptionPane.INFORMATION_MESSAGE,
+            	        null,
+            	        options,
+            	        options[0]
+            	);
 
-                if (option == JOptionPane.YES_OPTION) {
-                    startTime = System.currentTimeMillis();
-                    gameTimer.start();
-                } else {
-                    setLayout(new BorderLayout());
-                    add(startPanel, BorderLayout.CENTER);
-                    revalidate();
-                }
+            	if (option == 0) { // 사용자가 "Retry"를 선택한 경우
+            	    startTime = System.currentTimeMillis();
+            	    gameTimer.start();
+                } 
             }
         }
     }

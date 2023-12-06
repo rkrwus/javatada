@@ -19,6 +19,7 @@ public class MiroGame extends JPanel {
     MainSystem main;
 
     public MiroGame(MainSystem main) {
+    	this.main = main;
         setLayout(new BorderLayout());
 
         ImageIcon loadingImageIcon = new ImageIcon("images/loading2.jpg");
@@ -67,7 +68,7 @@ public class MiroGame extends JPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                int stepSize = 10;
+                int stepSize = 15;
 
                 int newPlayerX = playerX;
                 int newPlayerY = playerY;
@@ -155,7 +156,7 @@ public class MiroGame extends JPanel {
     }
 
     public int getScore() {
-        return (int) elapsedTime;
+        return (int)elapsedTime;
     }
 
  /* public static main(String[] args) {
