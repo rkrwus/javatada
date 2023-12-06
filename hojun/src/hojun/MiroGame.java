@@ -157,8 +157,8 @@ public class MiroGame extends JFrame {
         }
     }
     
-    public long getScore() {
-    	return elapsedTime;
+    public int getScore() {
+    	return (int)elapsedTime;
     }
 
     public static void main(String[] args) {
