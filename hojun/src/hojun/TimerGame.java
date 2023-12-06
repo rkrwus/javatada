@@ -37,43 +37,37 @@ public class TimerGame extends JFrame {
         startPanel.add(loadingLabel, BorderLayout.CENTER);
         startPanel.add(startButton, BorderLayout.SOUTH);
 
-        gamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        setLayout(new BorderLayout());
+        add(startPanel, BorderLayout.CENTER);
+    }
+
+    private void startGame() {
+    	gamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        setContentPane(gamePanel);
+        revalidate();
+
+        ImageIcon gameImageIcon = new ImageIcon("images/GameImage.jpg");
+        gameImageIcon = new ImageIcon(gameImageIcon.getImage().getScaledInstance(1536, 864, Image.SCALE_DEFAULT));
+
+        JLabel gameImageLabel = new JLabel(gameImageIcon);
+        gameImageLabel.setBounds(0, 0, 1280, 720);
+        gamePanel.add(gameImageLabel);
+        
         timerLabel = new JLabel("0");
-        timerLabel.setFont(new Font("TimesRoman", Font.ITALIC, 50));
-        gamePanel.add(timerLabel);
-
+        timerLabel.setFont(new Font("TimesRoman", Font.ITALIC, 250));
+        timerLabel.setBounds(900, -100, getWidth(), getHeight());
+        gameImageLabel.add(timerLabel);
+        
         stopButton = new JButton("스탑");
-        stopButton.setPreferredSize(new Dimension(100, 50));
-        gamePanel.add(stopButton);
-
+        stopButton.setBounds(900, 450, 300, 100);
+        gameImageLabel.add(stopButton);
+        
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 stopGame();
             }
         });
-
-        setLayout(new BorderLayout());
-        add(startPanel, BorderLayout.CENTER);
-    }
-
-    private void startGame() {
-        setContentPane(gamePanel);
-        gamePanel.removeAll();
-        revalidate();
-
-        ImageIcon gameImageIcon = new ImageIcon("images/GameImage.jpg");
-        gameImageIcon = new ImageIcon(gameImageIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT));
-
-        JLabel gameImageLabel = new JLabel(gameImageIcon);
-        gameImageLabel.setBounds(0, 0, 1280, 720);
-        gamePanel.add(gameImageLabel);
-
-        timerLabel.setBounds(100, 100, 200, 50);
-        gamePanel.add(timerLabel);
-
-        stopButton.setBounds(150, 200, 100, 50);
-        gamePanel.add(stopButton);
 
         
         startTime = System.currentTimeMillis();
@@ -99,19 +93,15 @@ public class TimerGame extends JFrame {
 
             if (elapsedTime >= 8.8 && elapsedTime <= 9.0) {
                 JOptionPane.showMessageDialog(this, "알람 설정에 성공했습니다!\n총 플레이 타임: " + String.format("%.1f", totalPlaytime) + " 초");
-
-                // If the time is within the allowed range, keep the game panel active
                 setContentPane(gamePanel);
                 revalidate();
             } else {
                 int option = JOptionPane.showConfirmDialog(this, "시간 내에 멈추지 못했습니다!\n재시도 하시겠습니까?", "Retry", JOptionPane.YES_NO_OPTION);
 
                 if (option == JOptionPane.YES_OPTION) {
-                    // Reset game-related variables for the next attempt
                     startTime = System.currentTimeMillis();
                     gameTimer.start();
                 } else {
-                    // If the user chooses not to retry, switch back to the start panel
                     setContentPane(startPanel);
                     revalidate();
                 }
@@ -119,8 +109,8 @@ public class TimerGame extends JFrame {
         }
     }
 
-    public double getScore() {
-        return totalPlaytime;
+    public int getScore() {
+        return (int)totalPlaytime;
     }
 
     public static void main(String[] args) {
