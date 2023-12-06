@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class TimerGame extends JFrame {
+public class TimerGame extends JPanel {
     private JPanel startPanel;
     private JPanel gamePanel;
     private JLabel timerLabel;
@@ -16,12 +16,10 @@ public class TimerGame extends JFrame {
     private double totalPlaytime;
 
     public TimerGame() {
-        setTitle("알람을 맞춰라!");
-        setSize(2560, 1440);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	
 
         ImageIcon loadingImageIcon = new ImageIcon("images/loading1.jpg");
-        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(1536, 864, Image.SCALE_DEFAULT));
+        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT));
 
         JLabel loadingLabel = new JLabel(loadingImageIcon);
 
@@ -43,7 +41,7 @@ public class TimerGame extends JFrame {
 
     private void startGame() {
     	gamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        setContentPane(gamePanel);
+        //setContentPane(gamePanel);
         revalidate();
 
         ImageIcon gameImageIcon = new ImageIcon("images/GameImage.jpg");
@@ -93,7 +91,7 @@ public class TimerGame extends JFrame {
 
             if (elapsedTime >= 8.8 && elapsedTime <= 9.0) {
                 JOptionPane.showMessageDialog(this, "알람 설정에 성공했습니다!\n총 플레이 타임: " + String.format("%.1f", totalPlaytime) + " 초");
-                setContentPane(gamePanel);
+                //setContentPane(gamePanel);
                 revalidate();
             } else {
                 int option = JOptionPane.showConfirmDialog(this, "시간 내에 멈추지 못했습니다!\n재시도 하시겠습니까?", "Retry", JOptionPane.YES_NO_OPTION);
@@ -102,7 +100,7 @@ public class TimerGame extends JFrame {
                     startTime = System.currentTimeMillis();
                     gameTimer.start();
                 } else {
-                    setContentPane(startPanel);
+                    //setContentPane(startPanel);
                     revalidate();
                 }
             }
@@ -111,10 +109,5 @@ public class TimerGame extends JFrame {
 
     public int getScore() {
         return (int)totalPlaytime;
-    }
-
-    public static void main(String[] args) {
-            TimerGame timerGame = new TimerGame();
-            timerGame.setVisible(true);
     }
 }
