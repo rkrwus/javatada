@@ -15,6 +15,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	public boolean gameOn = false;
 	
 	MainSystem mainSystem;
+	
 	private Player player; 
 	private List<FGrade> fs; // (f의 높이 너비 좌표값)의 리스트
 	private List<AGrade> as; // fs 와 동일
@@ -121,7 +122,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	}
 	
 	private void sendScore() {
-		mainSystem.getFirstScore();
+		mainSystem.getFourthScore();
 	}
 	
 	private void gameClear() {
@@ -284,7 +285,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
         revalidate();
         repaint();
         
-        mainSystem.playSecondGame();
+        mainSystem.playEnding();
 	}
 	
 }
