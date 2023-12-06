@@ -124,6 +124,7 @@ public class MiroGame extends JPanel {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(MiroGame.this);
             JOptionPane.showMessageDialog(parentFrame, "미션 성공했습니다!\n걸린 시간: " + df.format(elapsedTime / 1000.0) + "초");
             main.getSecondScore();
+            main.playThirdGame();
             return true;
         }
 
