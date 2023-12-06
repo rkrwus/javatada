@@ -114,9 +114,7 @@ public class TimerGame extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
             TimerGame timerGame = new TimerGame();
             timerGame.setVisible(true);
-        });
     }
 }
