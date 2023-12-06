@@ -15,9 +15,10 @@ public class TimerGame extends JPanel {
     private Timer gameTimer;
     private long startTime;
     private double totalPlaytime;
-    private MiroGame miroGame;
+    MainSystem main;
 
-    public TimerGame() {
+    public TimerGame(MainSystem main) {
+    	this.main = main;
         setLayout(new BorderLayout());
 
         ImageIcon loadingImageIcon = new ImageIcon("images/loading1.jpg");
@@ -93,10 +94,9 @@ public class TimerGame extends JPanel {
 
             if (elapsedTime >= 8.8 && elapsedTime <= 9.0) {
                 JOptionPane.showMessageDialog(this, "알람 설정에 성공했습니다!\n총 플레이 타임: " + String.format("%.1f", totalPlaytime) + " 초");
+                main.getFirstScore();
                 remove(gamePanel);
-                miroGame = new MiroGame();
-                add(miroGame, BorderLayout.CENTER);
-                revalidate();
+                
             } else {
                 int option = JOptionPane.showConfirmDialog(this, "시간 내에 멈추지 못했습니다!\n재시도 하시겠습니까?", "Retry", JOptionPane.YES_NO_OPTION);
 
@@ -116,7 +116,7 @@ public class TimerGame extends JPanel {
         return (int) totalPlaytime;
     }
 
-    public static void main(String[] args) {
+    /* public static void main(String[] args) {
         JFrame frame = new JFrame("알람을 맞춰라!");
         frame.setSize(2560, 1440);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,5 +124,5 @@ public class TimerGame extends JPanel {
         TimerGame timerGame = new TimerGame();
         frame.add(timerGame);
         frame.setVisible(true);
-    }
+    } */
 }

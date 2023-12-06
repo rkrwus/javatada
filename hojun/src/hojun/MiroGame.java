@@ -16,8 +16,9 @@ public class MiroGame extends JPanel {
     private JPanel startPanel;
     private long elapsedTime;
     private JLabel timerLabel = new JLabel();
+    MainSystem main;
 
-    public MiroGame() {
+    public MiroGame(MainSystem main) {
         setLayout(new BorderLayout());
 
         ImageIcon loadingImageIcon = new ImageIcon("images/loading2.jpg");
@@ -122,6 +123,7 @@ public class MiroGame extends JPanel {
             DecimalFormat df = new DecimalFormat("0.00");
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(MiroGame.this);
             JOptionPane.showMessageDialog(parentFrame, "미션 성공했습니다!\n걸린 시간: " + df.format(elapsedTime / 1000.0) + "초");
+            main.getSecondScore();
             return true;
         }
 
