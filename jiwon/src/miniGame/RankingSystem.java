@@ -1,6 +1,7 @@
 package miniGame;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -60,24 +61,25 @@ class RankingSystem extends JPanel {
 			data[i][2] = Integer.toString(user.getScore());
 		}
 
-		JLabel lb = new JLabel(newUser.getName() + "님의 순위는 " + newUser.getRank() + "위");
+		String lbText = newUser.getName() + "님의 순위는 " + newUser.getRank() + "위";
+		JLabel lb = new JLabel(lbText);
+		lb.setFont(new Font("", Font.PLAIN, 40));
 		lb.setHorizontalAlignment(JLabel.CENTER);
 
 		rankTable = new JTable(data, title);
 		JScrollPane sp = new JScrollPane(rankTable);
 		
 		JButton replayBtn = new JButton("다시하기");
-		replayBtn.setBorderPainted(false);
+		replayBtn.setFont(new Font("", Font.PLAIN, 30));
 
+		JPanel replayPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // FlowLayout을 사용하여 우측 정렬
+		replayPanel.add(replayBtn);
+		
 		setLayout(new BorderLayout());
 		add(sp, BorderLayout.CENTER);
 		add(lb, BorderLayout.NORTH);
-		
-		JPanel replayPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // FlowLayout을 사용하여 우측 정렬
-		replayPanel.add(replayBtn);
 		add(replayPanel, BorderLayout.SOUTH);
-		
-		setSize(500, 500);
+
 		setVisible(true);
 
 		replayBtn.addActionListener(new ActionListener() {
