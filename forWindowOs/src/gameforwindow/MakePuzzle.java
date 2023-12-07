@@ -57,6 +57,14 @@ public class MakePuzzle extends JPanel {
     private void loadImage(String imagePath) throws IOException {
         image = ImageIO.read(new File(imagePath));
     }
+    
+    private BufferedImage resize(BufferedImage img) {
+    	BufferedImage resizedImage = new BufferedImage(650, 650, img.getType());
+        Graphics2D g2d = resizedImage.createGraphics();
+        g2d.drawImage(img, 0, 0, 650, 650, null);
+        g2d.dispose();
+        return resizedImage;
+    }
 
     private BufferedImage[][] createSubImages(BufferedImage img) {
         int width = img.getWidth() / 3;
@@ -81,6 +89,7 @@ public class MakePuzzle extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        image = resize(image);
 
         BufferedImage[][] temp = createSubImages(image);
         int[] randomNumbers = generateRandomArray();
