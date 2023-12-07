@@ -95,7 +95,8 @@ public class TimerGame extends JPanel {
             if (elapsedTime >= 8.8 && elapsedTime <= 9.0) {
                 JOptionPane.showMessageDialog(this, "알람 설정에 성공했습니다!\n총 플레이 타임: " + String.format("%.1f", totalPlaytime) + " 초");
                 main.getFirstScore();
-                clearPanel();
+                remove(gamePanel);
+                main.playSecondGame();
                 
             } else {
             	Object[] options = {"Retry"};
@@ -121,16 +122,6 @@ public class TimerGame extends JPanel {
     public int getScore() {
         return (int) totalPlaytime;
     }
-    
-    private void clearPanel() {   
-    	setVisible(false);
-        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
- 
-        revalidate();
-        repaint();
-        
-        main.playSecondGame();
-	}
 
     /* public static void main(String[] args) {
         JFrame frame = new JFrame("알람을 맞춰라!");
