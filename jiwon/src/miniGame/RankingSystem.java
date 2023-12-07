@@ -158,4 +158,3 @@ class RankingSystem extends JFrame {
 	}
 
 }
-
