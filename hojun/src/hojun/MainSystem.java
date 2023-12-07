@@ -13,10 +13,10 @@ public class MainSystem extends JFrame {
 	MakePuzzle game3;
 	GradeDodger game4;
 	
-	private int firstScore = 0;
-	private int secondScore = 0;
-	private int thirdScore = 0;
-	private int fourthScore = 0;
+	private int firstScore;
+	private int secondScore;
+	private int thirdScore;
+	private int fourthScore;
 	private int totalScore = 0;
 
 	public MainSystem() {
@@ -107,7 +107,7 @@ public class MainSystem extends JFrame {
 	void operateRankingSystem() {		
 		totalScore = firstScore + secondScore + thirdScore + fourthScore;
 		totalScore = convertTimeToScore(totalScore);
-		new RankingSystem(this, totalScore);
+		new RankingSystem(this, 480); // 수정 필요
 	}
 
 	int convertTimeToScore(int time) {
@@ -133,7 +133,7 @@ public class MainSystem extends JFrame {
 		playBtn.setFont(new Font("Mistral", Font.PLAIN, 50));
 		playBtn.setForeground(new Color(25, 77, 51));
 		playBtn.setBackground(new Color(240, 248, 255));
-		playBtn.setBounds(600, 500, 500, 80);
+		playBtn.setBounds(465, 430, 500, 80);
 //		playBtn.setBorderPainted(false);
 		
 		imgPanel.add(playBtn);
