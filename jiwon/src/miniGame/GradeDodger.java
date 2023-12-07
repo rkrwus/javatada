@@ -16,6 +16,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	
 	MainSystem mainSystem;
 	
+	private JButton rewindButton;
+	
 	private Player player; 
 	private List<FGrade> fs; // (f의 높이 너비 좌표값)의 리스트
 	private List<AGrade> as; // fs 와 동일
@@ -31,6 +33,19 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		this.mainSystem = mainSystem;
 		//this.width = mainSystem.getWidth();
     	//this.height = mainSystem.getHeight();
+		
+		setLayout(new BorderLayout());
+		
+		rewindButton = new JButton("뒤로가기");
+        rewindButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainSystem.rewind();
+            }
+        });
+        
+        add(rewindButton, BorderLayout.WEST);
+		
 		player = new Player(width/2-30, height -50, 60, 20, 15); // 60, 20, 7 - 플레이어 너비 높이 속도
 		fs = new ArrayList<>();
 		as = new ArrayList<>();

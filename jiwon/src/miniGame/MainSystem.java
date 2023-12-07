@@ -40,41 +40,12 @@ public class MainSystem extends JFrame {
 	public int getHeight() {
 		return HEIGHT;
 	}
-
-	void playFirstGame() {
-		System.out.println("playFirstGame");
-		game1 = new TimerGame(this);
-		add(game1);
-		game1.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-		//setResizable(false);
-		//setLocationRelativeTo(null);
-		setVisible(true);
-		//setFocusable(true);
-		System.out.println("playFirstGame __ good");
-	}
 	
-	void playSecondGame() {
-		System.out.println("playSecondGame");
-		game2 = new MiroGame(this);
-		add(game2);
-		game2.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-		setResizable(false);
-		setLocationRelativeTo(null);
-		setVisible(true);
-		setFocusable(true);
-		System.out.println("playSecondGame __ good");
-	}
+	void playFirstStory() {}
 	
-	void playThirdGame() {
-		game3 = new MakePuzzle(this);
-		add(game3);
-		game3.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-		setResizable(false);
-		setLocationRelativeTo(null);
-		setVisible(true);
-		setFocusable(true);
-		System.out.println("playThirdGame __ good");
-	}
+	void playSecondStory() {}
+	
+	void playThirdStory() {}
 	
 	void playFourthStory() {
 		story4 = new GradeDodgerStory(this);
@@ -86,19 +57,42 @@ public class MainSystem extends JFrame {
 		setFocusable(true);
 		System.out.println("playFourthStory __ good");
 	}
-	
-	void playFourthGame() {
-		game4 = new GradeDodger(this);
-		getContentPane().removeAll(); // 기존에 추가된 컴포넌트를 제거
-	    getContentPane().setLayout(new BorderLayout());
-	    getContentPane().add(game4, BorderLayout.CENTER);
-		setLocationRelativeTo(null);
-		game4.requestFocus(); 
-		setResizable(false);
-		setVisible(true);
-		setFocusable(true);
-		System.out.println("playFourthGame __ good");
-	}
+
+	void playFirstGame() {
+	      System.out.println("playFirstGame");
+	      game1 = new TimerGame(this);
+	      add(game1);
+	      game1.requestFocus(); 
+	      setVisible(true);
+	      System.out.println("playFirstGame __ good");
+	   }
+	   
+	   void playSecondGame() {
+	      System.out.println("playSecondGame");
+	      game2 = new MiroGame(this);
+	      add(game2);
+	      game2.requestFocus();
+	      setVisible(true);
+	      System.out.println("playSecondGame __ good");
+	   }
+	   
+	   void playThirdGame() {
+	      game3 = new MakePuzzle(this);
+	      add(game3);
+	      game3.requestFocus();
+	      setVisible(true);
+	      System.out.println("playThirdGame __ good");
+	   }
+	   
+	   void playFourthGame() {
+	      game4 = new GradeDodger(this);
+	      getContentPane().removeAll(); // 기존에 추가된 컴포넌트를 제거
+	      getContentPane().setLayout(new BorderLayout());
+	      getContentPane().add(game4, BorderLayout.CENTER);
+	      game4.requestFocus(); 
+	      setVisible(true);
+	      System.out.println("playFourthGame __ good");
+	   }
 	
 	void getFirstScore() {
 		System.out.println("getFirstScore");
@@ -122,6 +116,12 @@ public class MainSystem extends JFrame {
 		System.out.println("getFourthScore");
 		fourthScore = game4.getScore();
 		System.out.println("getFourthScore __ ok" + fourthScore);
+	}
+	
+	void rewind() {
+		fourthScore = 0;
+		getContentPane().removeAll();
+		playFourthStory();
 	}
 
 	void replay() {
@@ -183,7 +183,7 @@ public class MainSystem extends JFrame {
 				revalidate();
 				repaint();
 
-				playFirstGame();
+				playFourthGame();
 			}
 		});
 	}
