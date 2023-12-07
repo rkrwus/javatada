@@ -7,6 +7,8 @@ import java.io.*;
 import java.util.*;
 
 public class MainSystem extends JFrame {
+	private static final int WIDTH = 1280;
+	private static final int HEIGHT = 720;
 
 	TimerGame game1;
 	MiroGame game2;
@@ -21,10 +23,11 @@ public class MainSystem extends JFrame {
 
 	public MainSystem() {
 		setTitle("JavaTada JavaTada JavaTada JavaTada JavaTada");
-		setSize(2560, 1440);
+		setSize(WIDTH, HEIGHT);
 		// setResizable(false);
 		playPanel();
 		setVisible(true);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -62,6 +65,17 @@ public class MainSystem extends JFrame {
 		setFocusable(true);
 		System.out.println("playThirdGame __ good");
 	}
+	
+//	void playFourthStory() {
+//		story4 = new GradeDodgerStory(this);
+//		setLocationRelativeTo(null);
+//		add(story4);
+//		story4.requestFocus(); 
+//		setResizable(false);
+//		setVisible(true);
+//		setFocusable(true);
+//		System.out.println("playFourthStory __ good");
+//	}
 	
 	void playFourthGame() {
 		game4 = new GradeDodger(this);
@@ -104,9 +118,10 @@ public class MainSystem extends JFrame {
 		setVisible(true);
 	}
 
-	void operateRankingSystem() {		
-		totalScore = firstScore + secondScore + thirdScore + fourthScore;
-		totalScore = convertTimeToScore(totalScore);
+	void operateRankingSystem() {	
+		int totalTime;
+		totalTime = firstScore + secondScore + thirdScore + fourthScore;
+		totalScore = convertTimeToScore(totalTime);
 		new RankingSystem(this, totalScore);
 	}
 
@@ -115,11 +130,15 @@ public class MainSystem extends JFrame {
 //		최대 시간을 10분(=600s)로 잡고 점수는 (최대 시간-소요시간)*가중치로 환산, 소요시간이 10분을 초과하는 경우 0점
 			final int MAX_TIME = 600;
 			final int WEIGHT = 12345;
-			int score = 0;
+			int score;
+			
+			System.out.println("time : "+time);
 			
 			if (time > MAX_TIME || time < 0) time = MAX_TIME;
+			
 			score = (MAX_TIME - time) * WEIGHT;
-
+			
+			System.out.println("score : "+score);
 			return score;
 		}
 
@@ -133,7 +152,7 @@ public class MainSystem extends JFrame {
 		playBtn.setFont(new Font("Mistral", Font.PLAIN, 50));
 		playBtn.setForeground(new Color(25, 77, 51));
 		playBtn.setBackground(new Color(240, 248, 255));
-		playBtn.setBounds(600, 500, 500, 80);
+		playBtn.setBounds(WIDTH/2-250, 330, 500, 80);
 //		playBtn.setBorderPainted(false);
 		
 		imgPanel.add(playBtn);
@@ -148,7 +167,7 @@ public class MainSystem extends JFrame {
 				revalidate();
 				repaint();
 
-				playFirstGame();
+				playFourthGame();
 			}
 		});
 	}
