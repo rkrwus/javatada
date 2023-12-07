@@ -7,8 +7,8 @@ import java.io.*;
 import java.util.*;
 
 public class MainSystem extends JFrame {
-	private static final int WIDTH = 25650;
-	private static final int HEIGHT = 1440;
+	private static final int WIDTH = 1280;
+	private static final int HEIGHT = 720;
 
 	TimerGame game1;
 	MiroGame game2;
