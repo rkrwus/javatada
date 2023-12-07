@@ -151,7 +151,7 @@ public class MainSystem extends JFrame {
 		playBtn.setFont(new Font("Mistral", Font.PLAIN, 50));
 		playBtn.setForeground(new Color(25, 77, 51));
 		playBtn.setBackground(new Color(240, 248, 255));
-		playBtn.setBounds(600, 500, 500, 80);
+		playBtn.setBounds(500, 420, 500, 80);
 //		playBtn.setBorderPainted(false);
 		
 		imgPanel.add(playBtn);
