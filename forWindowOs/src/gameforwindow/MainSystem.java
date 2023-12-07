@@ -179,7 +179,7 @@ public class MainSystem extends JFrame {
 				revalidate();
 				repaint();
 
-				playFourthStory();
+				playFirstGame();
 			}
 		});
 	}
