@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TimerGame extends JPanel {
+	private int width;
+	private int height;
+	
     private JPanel startPanel;
     private JPanel gamePanel;
     private JLabel timerLabel;
@@ -19,10 +22,13 @@ public class TimerGame extends JPanel {
 
     public TimerGame(MainSystem main) {
     	this.main = main;
+    	this.width = main.getWidth();
+    	this.height = main.getHeight();
+    	
         setLayout(new BorderLayout());
 
         ImageIcon loadingImageIcon = new ImageIcon("images/loading1.jpg");
-        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(1536, 864, Image.SCALE_DEFAULT));
+        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
 
         JLabel loadingLabel = new JLabel(loadingImageIcon);
 
@@ -49,19 +55,19 @@ public class TimerGame extends JPanel {
         revalidate();
 
         ImageIcon gameImageIcon = new ImageIcon("images/GameImage.jpg");
-        gameImageIcon = new ImageIcon(gameImageIcon.getImage().getScaledInstance(1536, 864, Image.SCALE_DEFAULT));
+        gameImageIcon = new ImageIcon(gameImageIcon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
 
         JLabel gameImageLabel = new JLabel(gameImageIcon);
-        gameImageLabel.setBounds(0, 0, 1280, 720);
+        gameImageLabel.setBounds(0, 0, width, height);
         gamePanel.add(gameImageLabel);
 
         timerLabel = new JLabel("0");
         timerLabel.setFont(new Font("TimesRoman", Font.ITALIC, 250));
-        timerLabel.setBounds(900, -100, getWidth(), getHeight());
+        timerLabel.setBounds((width*6)/11, -(height/8), getWidth(), getHeight());
         gameImageLabel.add(timerLabel);
 
         stopButton = new JButton("스탑");
-        stopButton.setBounds(900, 450, 300, 100);
+        stopButton.setBounds(730, height/2, 300, 100);
         gameImageLabel.add(stopButton);
 
         stopButton.addActionListener(new ActionListener() {
