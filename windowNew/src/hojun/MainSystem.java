@@ -117,9 +117,10 @@ public class MainSystem extends JFrame {
 		setVisible(true);
 	}
 
-	void operateRankingSystem() {		
-		totalScore = firstScore + secondScore + thirdScore + fourthScore;
-		totalScore = convertTimeToScore(totalScore);
+	void operateRankingSystem() {	
+		int totalTime;
+		totalTime = firstScore + secondScore + thirdScore + fourthScore;
+		totalScore = convertTimeToScore(totalTime);
 		new RankingSystem(this, totalScore);
 	}
 
@@ -128,11 +129,15 @@ public class MainSystem extends JFrame {
 //		최대 시간을 10분(=600s)로 잡고 점수는 (최대 시간-소요시간)*가중치로 환산, 소요시간이 10분을 초과하는 경우 0점
 			final int MAX_TIME = 600;
 			final int WEIGHT = 12345;
-			int score = 0;
+			int score;
+			
+			System.out.println("time : "+time);
 			
 			if (time > MAX_TIME || time < 0) time = MAX_TIME;
+			
 			score = (MAX_TIME - time) * WEIGHT;
-
+			
+			System.out.println("score : "+score);
 			return score;
 		}
 
