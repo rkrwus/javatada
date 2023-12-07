@@ -32,6 +32,14 @@ public class MainSystem extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
+	public int getWidth() {
+		return WIDTH;
+	}
+	
+	public int getHeight() {
+		return HEIGHT;
+	}
 
 	void playFirstGame() {
 		System.out.println("playFirstGame");
@@ -81,8 +89,10 @@ public class MainSystem extends JFrame {
 	
 	void playFourthGame() {
 		game4 = new GradeDodger(this);
+		getContentPane().removeAll(); // 기존에 추가된 컴포넌트를 제거
+	    getContentPane().setLayout(new BorderLayout());
+	    getContentPane().add(game4, BorderLayout.CENTER);
 		setLocationRelativeTo(null);
-		add(game4);
 		game4.requestFocus(); 
 		setResizable(false);
 		setVisible(true);
@@ -169,7 +179,7 @@ public class MainSystem extends JFrame {
 				revalidate();
 				repaint();
 
-				playFirstGame();
+				playFourthStory();
 			}
 		});
 	}
