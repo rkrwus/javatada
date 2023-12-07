@@ -7,6 +7,8 @@ import java.io.*;
 import java.util.*;
 
 public class MainSystem extends JFrame {
+	private static final int WIDTH = 1280;
+	private static final int HEIGHT = 720;
 
 	TimerGame game1;
 	MiroGame game2;
@@ -23,7 +25,7 @@ public class MainSystem extends JFrame {
 
 	public MainSystem() {
 		setTitle("JavaTada JavaTada JavaTada JavaTada JavaTada");
-		setSize(1280, 720);
+		setSize(WIDTH, HEIGHT);
 		// setResizable(false);
 		playPanel();
 		setVisible(true);
@@ -152,7 +154,7 @@ public class MainSystem extends JFrame {
 		playBtn.setFont(new Font("Mistral", Font.PLAIN, 50));
 		playBtn.setForeground(new Color(25, 77, 51));
 		playBtn.setBackground(new Color(240, 248, 255));
-		playBtn.setBounds(500, 420, 500, 80);
+		playBtn.setBounds(WIDTH/2-250, 330, 500, 80);
 //		playBtn.setBorderPainted(false);
 		
 		imgPanel.add(playBtn);
