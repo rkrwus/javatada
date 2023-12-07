@@ -8,13 +8,17 @@ import java.awt.event.ActionEvent;
 public class GradeDodgerStory extends JPanel{
 	MainSystem mainSystem;
 	JButton startButton;
+	private int width;
+	private int height;
 	
 	public GradeDodgerStory(MainSystem main) {
 		this.mainSystem = main;
+		this.width = main.getWidth();
+    	this.height = main.getHeight();
 		setLayout(new BorderLayout());
 		
 		ImageIcon storyImage = new ImageIcon(getClass().getResource("/gdStory.png"));
-        storyImage = new ImageIcon(storyImage.getImage().getScaledInstance(1536, 864, Image.SCALE_DEFAULT));
+        storyImage = new ImageIcon(storyImage.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
         System.out.println("gdStory.png URL: " + getClass().getResource("/gdStory.png"));
         JLabel storylabel = new JLabel(storyImage);
 
