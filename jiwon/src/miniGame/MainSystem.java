@@ -13,10 +13,10 @@ public class MainSystem extends JFrame {
 	MakePuzzle game3;
 	GradeDodger game4;
 	
-	private int firstScore;
-	private int secondScore;
-	private int thirdScore;
-	private int fourthScore;
+	private int firstScore = 0;
+	private int secondScore = 0;
+	private int thirdScore = 0;
+	private int fourthScore = 0;
 	private int totalScore = 0;
 
 	public MainSystem() {
@@ -107,13 +107,9 @@ public class MainSystem extends JFrame {
 		setVisible(true);
 	}
 
-	void operateRankingSystem() {
-		firstScore = convertTimeToScore(firstScore);
-		secondScore = convertTimeToScore(secondScore);
-		thirdScore = convertTimeToScore(thirdScore);
-		fourthScore = convertTimeToScore(fourthScore);
-		
+	void operateRankingSystem() {		
 		totalScore = firstScore + secondScore + thirdScore + fourthScore;
+		totalScore = convertTimeToScore(totalScore);
 		new RankingSystem(this, totalScore);
 	}
 
@@ -122,8 +118,11 @@ public class MainSystem extends JFrame {
 //	최대 시간을 10분(=600s)로 잡고 점수는 (최대 시간-소요시간)*가중치로 환산, 소요시간이 10분을 초과하는 경우 0점
 		final int MAX_TIME = 600;
 		final int WEIGHT = 12345;
+		int score = 0;
+		
+		if (time > MAX_TIME || time < 0) time = MAX_TIME;
+		score = (MAX_TIME - time) * WEIGHT;
 
-		int score = (MAX_TIME - time) * WEIGHT;
 		return score;
 	}
 
@@ -132,19 +131,16 @@ public class MainSystem extends JFrame {
 		setLayout(new BorderLayout());
 		ImagePanel imgPanel = new ImagePanel(new ImageIcon("C:\\Temp\\backimg.jpg").getImage());
 		imgPanel.setLayout(null);
+//		imgPanel.setSize(2560, 1440);
 
-		JLabel playlb = new JLabel("시작 버튼을 눌러주세요!");
-		playlb.setBounds(50, 110, 200, 40);
-		playlb.setHorizontalAlignment(JLabel.CENTER);
-
-		JButton playBtn = new JButton("시작");
-		playBtn.setBounds(110, 150, 80, 40);
-		playBtn.setBorderPainted(false);
-
-		imgPanel.add(playlb);
+		JButton playBtn = new JButton("PLAY");
+		playBtn.setFont(new Font("Mistral", Font.PLAIN, 50));
+		playBtn.setForeground(new Color(25, 77, 51));
+		playBtn.setBackground(new Color(240, 248, 255));
+		playBtn.setBounds(600, 500, 500, 80);
+//		playBtn.setBorderPainted(false);
+		
 		imgPanel.add(playBtn);
-		imgPanel.setSize(2560, 1440);
-
 		add(imgPanel);
 
 		playBtn.addActionListener(new ActionListener() {
