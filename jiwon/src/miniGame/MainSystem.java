@@ -22,12 +22,9 @@ public class MainSystem extends JFrame {
 	public MainSystem() {
 		setTitle("JavaTada JavaTada JavaTada JavaTada JavaTada");
 		setSize(2560, 1440);
-		setResizable(false);
-
+		// setResizable(false);
 		playPanel();
-
 		setVisible(true);
-		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -36,10 +33,10 @@ public class MainSystem extends JFrame {
 		game1 = new TimerGame(this);
 		add(game1);
 		game1.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-		setResizable(false);
-		setLocationRelativeTo(null);
+		//setResizable(false);
+		//setLocationRelativeTo(null);
 		setVisible(true);
-		setFocusable(true);
+		//setFocusable(true);
 		System.out.println("playFirstGame __ good");
 	}
 	
@@ -68,10 +65,10 @@ public class MainSystem extends JFrame {
 	
 	void playFourthGame() {
 		game4 = new GradeDodger(this);
-		add(game4);
-		game4.requestFocus(); // !!!!!!!!!!!!!!!!Request focus for the active game!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-		setResizable(false);
 		setLocationRelativeTo(null);
+		add(game4);
+		game4.requestFocus(); 
+		setResizable(false);
 		setVisible(true);
 		setFocusable(true);
 		System.out.println("playFourthGame __ good");
@@ -114,24 +111,23 @@ public class MainSystem extends JFrame {
 	}
 
 	int convertTimeToScore(int time) {
-//	입력받은 시간이 짧을 수록 높은 점수를 갖도록 환산
-//	최대 시간을 10분(=600s)로 잡고 점수는 (최대 시간-소요시간)*가중치로 환산, 소요시간이 10분을 초과하는 경우 0점
-		final int MAX_TIME = 600;
-		final int WEIGHT = 12345;
-		int score = 0;
-		
-		if (time > MAX_TIME || time < 0) time = MAX_TIME;
-		score = (MAX_TIME - time) * WEIGHT;
+//		입력받은 시간이 짧을 수록 높은 점수를 갖도록 환산
+//		최대 시간을 10분(=600s)로 잡고 점수는 (최대 시간-소요시간)*가중치로 환산, 소요시간이 10분을 초과하는 경우 0점
+			final int MAX_TIME = 600;
+			final int WEIGHT = 12345;
+			int score = 0;
+			
+			if (time > MAX_TIME || time < 0) time = MAX_TIME;
+			score = (MAX_TIME - time) * WEIGHT;
 
-		return score;
-	}
+			return score;
+		}
 
 	void playPanel() {
 
 		setLayout(new BorderLayout());
-		ImagePanel imgPanel = new ImagePanel(new ImageIcon("C:\\Temp\\backimg.jpg").getImage());
+		ImagePanel imgPanel = new ImagePanel(new ImageIcon("images/start.jpg").getImage());
 		imgPanel.setLayout(null);
-//		imgPanel.setSize(2560, 1440);
 
 		JButton playBtn = new JButton("PLAY");
 		playBtn.setFont(new Font("Mistral", Font.PLAIN, 50));
@@ -177,6 +173,8 @@ public class MainSystem extends JFrame {
 
 	public static void main(String[] args) {
 		new MainSystem();
+		BackgroundMusic backgroundMusic = new BackgroundMusic();
+        backgroundMusic.playBackgroundMusic();
 	}
 
 }
