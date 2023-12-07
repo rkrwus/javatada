@@ -150,7 +150,7 @@ public class MainSystem extends JFrame {
 			
 			System.out.println("time : "+time);
 			
-			if (time > MAX_TIME || time < 0) time = MAX_TIME;
+			if (time > MAX_TIME || time <= 0) time = MAX_TIME;
 			
 			score = (MAX_TIME - time) * WEIGHT;
 			
