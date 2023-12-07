@@ -156,7 +156,7 @@ public class MiroGame extends JPanel {
     }
 
     public int getScore() {
-        return (int)elapsedTime;
+        return (int)elapsedTime/1000;
     }
     
     private void clearPanel() {   
