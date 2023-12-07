@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
-class RankingSystem extends JFrame {
+class RankingSystem extends JPanel {
 	
 	MainSystem mainSystem;
 	private JTable rankTable;
@@ -19,21 +19,15 @@ class RankingSystem extends JFrame {
 	}
 
 	void getUserData(User newUser) {
-		JPanel panel = new JPanel();
 		JLabel label = new JLabel("이름: ");
 		JTextField txtName = new JTextField(10);
 		JButton confirmBtn = new JButton("확인");
 
-		panel.add(label);
-		panel.add(txtName);
-		panel.add(confirmBtn);
+		add(label);
+		add(txtName);
+		add(confirmBtn);
 
-		add(panel);
-		setSize(500, 500);
-		setResizable(false);
 		setVisible(true);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		confirmBtn.addActionListener(new ActionListener() {
 			@Override
@@ -42,7 +36,7 @@ class RankingSystem extends JFrame {
 				newUser.setName(name);
 				txtName.setText("");
 
-				getContentPane().remove(panel);
+				removeAll();
 				revalidate();
 				repaint();
 
@@ -75,14 +69,13 @@ class RankingSystem extends JFrame {
 		JButton replayBtn = new JButton("다시하기");
 		replayBtn.setBorderPainted(false);
 
-		Container c = getContentPane();
-		c.setLayout(new BorderLayout());
-		c.add(sp, BorderLayout.CENTER);
-		c.add(lb, BorderLayout.NORTH);
+		setLayout(new BorderLayout());
+		add(sp, BorderLayout.CENTER);
+		add(lb, BorderLayout.NORTH);
 		
 		JPanel replayPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // FlowLayout을 사용하여 우측 정렬
 		replayPanel.add(replayBtn);
-		c.add(replayPanel, BorderLayout.SOUTH);
+		add(replayPanel, BorderLayout.SOUTH);
 		
 		setSize(500, 500);
 		setVisible(true);
@@ -90,8 +83,7 @@ class RankingSystem extends JFrame {
 		replayBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				getContentPane().remove(c);
-				dispose();
+				removeAll();
 				revalidate();
 				repaint();
 				

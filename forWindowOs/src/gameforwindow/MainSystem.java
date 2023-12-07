@@ -134,7 +134,11 @@ public class MainSystem extends JFrame {
 		int totalTime;
 		totalTime = firstScore + secondScore + thirdScore + fourthScore;
 		totalScore = convertTimeToScore(totalTime);
-		new RankingSystem(this, totalScore);
+		
+		RankingSystem rs = new RankingSystem(this, totalScore);
+		add(rs);
+		setVisible(true);
+		setFocusable(true);
 	}
 
 	int convertTimeToScore(int time) {
