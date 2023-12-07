@@ -125,7 +125,7 @@ public class MiroGame extends JPanel {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(MiroGame.this);
             JOptionPane.showMessageDialog(parentFrame, "미션 성공했습니다!\n걸린 시간: " + df.format(elapsedTime / 1000.0) + "초");
             main.getSecondScore();
-            main.playThirdGame();
+            clearPanel();
             return true;
         }
 
@@ -154,6 +154,16 @@ public class MiroGame extends JPanel {
         g.drawImage(Building5.getImage(), 1090, 480, 480, 280, this);
         g.drawImage(playerIcon.getImage(), playerX, playerY, playerWidth, playerHeight, this);
     }
+    
+    private void clearPanel() {   
+    	setVisible(false);
+        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+ 
+        revalidate();
+        repaint();
+        
+        main.playThirdGame();
+	}
 
     public int getScore() {
         return (int)elapsedTime;
