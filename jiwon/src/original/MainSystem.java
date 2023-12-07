@@ -1,4 +1,4 @@
-package miniGame;
+package original;
 
 import javax.swing.*;
 import java.awt.*;
@@ -122,11 +122,7 @@ public class MainSystem extends JFrame {
 		int totalTime;
 		totalTime = firstScore + secondScore + thirdScore + fourthScore;
 		totalScore = convertTimeToScore(totalTime);
-		
-		RankingSystem rs = new RankingSystem(this, totalScore);
-		add(rs);
-		setVisible(true);
-		setFocusable(true);
+		new RankingSystem(this, totalScore);
 	}
 
 	int convertTimeToScore(int time) {
@@ -171,7 +167,7 @@ public class MainSystem extends JFrame {
 				revalidate();
 				repaint();
 
-				playThirdGame();
+				operateRankingSystem();
 			}
 		});
 	}

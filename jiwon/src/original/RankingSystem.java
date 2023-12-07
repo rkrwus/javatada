@@ -1,4 +1,4 @@
-package miniGame;
+package original;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
-class RankingSystem extends JPanel {
+class RankingSystem extends JFrame {
 	
 	MainSystem mainSystem;
 	private JTable rankTable;
@@ -19,15 +19,21 @@ class RankingSystem extends JPanel {
 	}
 
 	void getUserData(User newUser) {
+		JPanel panel = new JPanel();
 		JLabel label = new JLabel("이름: ");
 		JTextField txtName = new JTextField(10);
 		JButton confirmBtn = new JButton("확인");
 
-		add(label);
-		add(txtName);
-		add(confirmBtn);
+		panel.add(label);
+		panel.add(txtName);
+		panel.add(confirmBtn);
 
+		add(panel);
+		setSize(500, 500);
+		setResizable(false);
 		setVisible(true);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		confirmBtn.addActionListener(new ActionListener() {
 			@Override
@@ -36,7 +42,7 @@ class RankingSystem extends JPanel {
 				newUser.setName(name);
 				txtName.setText("");
 
-				removeAll();
+				getContentPane().remove(panel);
 				revalidate();
 				repaint();
 
@@ -69,13 +75,14 @@ class RankingSystem extends JPanel {
 		JButton replayBtn = new JButton("다시하기");
 		replayBtn.setBorderPainted(false);
 
-		setLayout(new BorderLayout());
-		add(sp, BorderLayout.CENTER);
-		add(lb, BorderLayout.NORTH);
+		Container c = getContentPane();
+		c.setLayout(new BorderLayout());
+		c.add(sp, BorderLayout.CENTER);
+		c.add(lb, BorderLayout.NORTH);
 		
 		JPanel replayPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // FlowLayout을 사용하여 우측 정렬
 		replayPanel.add(replayBtn);
-		add(replayPanel, BorderLayout.SOUTH);
+		c.add(replayPanel, BorderLayout.SOUTH);
 		
 		setSize(500, 500);
 		setVisible(true);
@@ -83,7 +90,8 @@ class RankingSystem extends JPanel {
 		replayBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				removeAll();
+				getContentPane().remove(c);
+				dispose();
 				revalidate();
 				repaint();
 				

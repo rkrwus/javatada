@@ -20,14 +20,15 @@ public class MakePuzzle extends JPanel {
        this.main = main;
         setLayout(new BorderLayout());
 
-        JPanel imagePanel = new JPanel() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                if (image != null) {
-                    g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-                }
-            }
-        };
+        JPanel imagePanel = new JPanel();
+//        {
+//            protected void paintComponent(Graphics g) {
+//                super.paintComponent(g);
+//                if (image != null) {
+//                    g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+//                }
+//            }
+//        }
         imagePanel.setLayout(new BorderLayout());
 
         try {
