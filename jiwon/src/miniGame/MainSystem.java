@@ -15,6 +15,8 @@ public class MainSystem extends JFrame {
 	MakePuzzle game3;
 	GradeDodger game4;
 	
+	GradeDodgerStory story4;
+	
 	private int firstScore = 0;
 	private int secondScore = 0;
 	private int thirdScore = 0;
@@ -29,6 +31,14 @@ public class MainSystem extends JFrame {
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public int getWidth() {
+		return WIDTH;
+	}
+	
+	public int getHeight() {
+		return HEIGHT;
 	}
 
 	void playFirstGame() {
@@ -66,21 +76,23 @@ public class MainSystem extends JFrame {
 		System.out.println("playThirdGame __ good");
 	}
 	
-//	void playFourthStory() {
-//		story4 = new GradeDodgerStory(this);
-//		setLocationRelativeTo(null);
-//		add(story4);
-//		story4.requestFocus(); 
-//		setResizable(false);
-//		setVisible(true);
-//		setFocusable(true);
-//		System.out.println("playFourthStory __ good");
-//	}
+	void playFourthStory() {
+		story4 = new GradeDodgerStory(this);
+		setLocationRelativeTo(null);
+		add(story4);
+		story4.requestFocus(); 
+		setResizable(false);
+		setVisible(true);
+		setFocusable(true);
+		System.out.println("playFourthStory __ good");
+	}
 	
 	void playFourthGame() {
 		game4 = new GradeDodger(this);
+		getContentPane().removeAll(); // 기존에 추가된 컴포넌트를 제거
+	    getContentPane().setLayout(new BorderLayout());
+	    getContentPane().add(game4, BorderLayout.CENTER);
 		setLocationRelativeTo(null);
-		add(game4);
 		game4.requestFocus(); 
 		setResizable(false);
 		setVisible(true);
@@ -171,7 +183,7 @@ public class MainSystem extends JFrame {
 				revalidate();
 				repaint();
 
-				playThirdGame();
+				playFirstGame();
 			}
 		});
 	}

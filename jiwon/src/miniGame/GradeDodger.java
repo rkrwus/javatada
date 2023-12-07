@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GradeDodger extends JPanel implements ActionListener, KeyListener{
-	private static final int WIDTH = 800; // 패널 폭
-	private static final int HEIGHT = 800; // 패널 높이
+	private int width=800;
+	private int height=700;
 	
 	public boolean gameOn = false;
 	
@@ -29,7 +29,9 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	
 	public GradeDodger(MainSystem mainSystem) {		
 		this.mainSystem = mainSystem;
-		player = new Player(WIDTH/2-30, HEIGHT -50, 60, 20, 15); // 60, 20, 7 - 플레이어 너비 높이 속도
+		//this.width = mainSystem.getWidth();
+    	//this.height = mainSystem.getHeight();
+		player = new Player(width/2-30, height -50, 60, 20, 15); // 60, 20, 7 - 플레이어 너비 높이 속도
 		fs = new ArrayList<>();
 		as = new ArrayList<>();
 		gameTimer = new Timer(10, this); // 10 millisec 딜레이
@@ -49,11 +51,11 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	}
 	
 	public int getWidth() {
-		return this.WIDTH;
+		return this.width;
 	}
 	
 	public int getHeight() {
-		return this.HEIGHT;
+		return this.height;
 	}
 	
 	public Timer getTimer() {
@@ -70,7 +72,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		if(random.nextDouble() < 0.03) {
 			int fWidth = 30;
 			int fHeight = 30;
-			int fX = random.nextInt(WIDTH - fWidth);
+			int fX = random.nextInt(width - fWidth);
 			int fY = 0;
 			
 			FGrade f = new FGrade(fX, fY, fWidth, fHeight);
@@ -83,7 +85,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		if(random.nextDouble() < 0.02) {
 			int aWidth = 30;
 			int aHeight = 30; 
-			int aX = random.nextInt(WIDTH - aWidth);
+			int aX = random.nextInt(width - aWidth);
 			int aY = 0;
 			
 			AGrade a = new AGrade(aX, aY, aWidth, aHeight);
@@ -134,7 +136,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		JLabel gameOverLabel = new JLabel("!!!GAME CLEAR!!!");
 	    Font font = new Font("Arial", Font.BOLD, 40);
 	    gameOverLabel.setFont(font);
-	    gameOverLabel.setBounds((WIDTH-400)/2, (HEIGHT-80)/2, 400, 80);
+	    gameOverLabel.setBounds((width-400)/2, (height-80)/2, 400, 80);
 	    add(gameOverLabel);
 	    repaint();
 
@@ -178,7 +180,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	    JLabel gameOverLabel = new JLabel("!!!GAME OVER!!!");
 	    Font font = new Font("Arial", Font.BOLD, 40);
 	    gameOverLabel.setFont(font);
-	    gameOverLabel.setBounds((WIDTH-400)/2, (HEIGHT-80)/2, 400, 80);
+	    gameOverLabel.setBounds((width-400)/2, (height-80)/2, 400, 80);
 	    add(gameOverLabel);
 	    repaint();
 
@@ -229,7 +231,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 
         if (key == KeyEvent.VK_LEFT && player.x > 0) {
             player.moveLeft();
-        } else if (key == KeyEvent.VK_RIGHT && player.x < WIDTH - player.width) {
+        } else if (key == KeyEvent.VK_RIGHT && player.x < width - player.width) {
             player.moveRight();
         }
     }

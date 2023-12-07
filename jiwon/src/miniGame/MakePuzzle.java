@@ -20,15 +20,14 @@ public class MakePuzzle extends JPanel {
        this.main = main;
         setLayout(new BorderLayout());
 
-        JPanel imagePanel = new JPanel();
-//        {
-//            protected void paintComponent(Graphics g) {
-//                super.paintComponent(g);
-//                if (image != null) {
-//                    g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-//                }
-//            }
-//        }
+        JPanel imagePanel = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (image != null) {
+                    g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+                }
+            }
+        };
         imagePanel.setLayout(new BorderLayout());
 
         try {
@@ -58,6 +57,14 @@ public class MakePuzzle extends JPanel {
     private void loadImage(String imagePath) throws IOException {
         image = ImageIO.read(new File(imagePath));
     }
+    
+    private BufferedImage resize(BufferedImage img) {
+    	BufferedImage resizedImage = new BufferedImage(650, 650, img.getType());
+        Graphics2D g2d = resizedImage.createGraphics();
+        g2d.drawImage(img, 0, 0, 650, 650, null);
+        g2d.dispose();
+        return resizedImage;
+    }
 
     private BufferedImage[][] createSubImages(BufferedImage img) {
         int width = img.getWidth() / 3;
@@ -82,6 +89,7 @@ public class MakePuzzle extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        image = resize(image);
 
         BufferedImage[][] temp = createSubImages(image);
         int[] randomNumbers = generateRandomArray();
@@ -191,6 +199,6 @@ public class MakePuzzle extends JPanel {
         revalidate();
         repaint();
         
-        main.playFourthGame();
+        main.playFourthStory();
 	}
 }
