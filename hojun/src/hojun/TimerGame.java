@@ -11,15 +11,55 @@ public class TimerGame extends JPanel {
     private JLabel timerLabel;
     private JButton startButton;
     private JButton stopButton;
+    private JButton rewindButton;
 
     private Timer gameTimer;
     private long startTime;
     private double totalPlaytime;
     MainSystem main;
 
+    
     public TimerGame(MainSystem main) {
     	this.main = main;
-        setLayout(new BorderLayout());
+        gamePanel = new JPanel(new BorderLayout());
+        add(gamePanel, BorderLayout.CENTER);
+        revalidate();
+
+        ImageIcon gameImageIcon = new ImageIcon("images/GameImage.jpg");
+        gameImageIcon = new ImageIcon(gameImageIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT));
+
+        timerLabel = new JLabel("0");
+        timerLabel.setFont(new Font("TimesRoman", Font.ITALIC, 200));
+        timerLabel.setBounds(750, -250, 1000, 1000);
+        gamePanel.add(timerLabel);
+        
+        JLabel gameImageLabel = new JLabel(gameImageIcon);
+        gamePanel.add(gameImageLabel, BorderLayout.CENTER);
+        
+        stopButton = new JButton("8.8초에서 9초 사이에 멈춰라!");
+        stopButton.setBounds(740, 350, 300, 100);
+        gameImageLabel.add(stopButton);
+
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                stopGame();
+            }
+        });
+        startTime = System.currentTimeMillis();
+
+        gameTimer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                double seconds = elapsedTime / 1000.0;
+                timerLabel.setText(String.format("%.1f", seconds));
+            }
+        });
+
+        gameTimer.start();
+    	
+        /*setLayout(new BorderLayout());
 
         ImageIcon loadingImageIcon = new ImageIcon("images/loading1.jpg");
         loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT));
@@ -38,10 +78,10 @@ public class TimerGame extends JPanel {
         startPanel.add(loadingLabel, BorderLayout.CENTER);
         startPanel.add(startButton, BorderLayout.SOUTH);
 
-        add(startPanel, BorderLayout.CENTER);
+        add(startPanel, BorderLayout.CENTER);*/
     }
 
-    private void startGame() {
+    /* private void startGame() {
     	remove(startPanel);
         gamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         setLayout(new BorderLayout());
@@ -70,6 +110,18 @@ public class TimerGame extends JPanel {
                 stopGame();
             }
         });
+        
+        rewindButton = new JButton("스토리로 돌아가기");
+        rewindButton.setBounds(0, 0, 300, 100);
+        gameImageLabel.add(rewindButton);
+        
+        rewindButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	remove(gamePanel);
+                main.playFirstGame();
+            }
+        });
 
         startTime = System.currentTimeMillis();
 
@@ -83,7 +135,9 @@ public class TimerGame extends JPanel {
         });
 
         gameTimer.start();
-    }
+        
+        
+    } */
 
     private void stopGame() {
         if (gameTimer != null && gameTimer.isRunning()) {

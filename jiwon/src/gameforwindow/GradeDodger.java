@@ -427,7 +427,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
         revalidate();
         repaint();
         
-        mainSystem.operateRankingSystem();
+        mainSystem.operateRankingSystem(true);
 	}
 	
 }

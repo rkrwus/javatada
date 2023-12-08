@@ -12,6 +12,7 @@ public class MainSystem extends JFrame {
 	MiroGame game2;
 	MakePuzzle game3;
 	GradeDodger game4;
+	
 	GradeDodgerStory story4;
 	
 	private int firstScore;
@@ -28,6 +29,7 @@ public class MainSystem extends JFrame {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+
 
 	void playFourthStory() {
 		story4 = new GradeDodgerStory(this);
