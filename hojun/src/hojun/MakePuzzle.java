@@ -121,7 +121,7 @@ public class MakePuzzle extends JPanel {
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String inputText = textField.getText();
-                if (inputText.equals("김화정교수님사랑합니다")) {
+                if (inputText.equals("교수님사랑합니다")) {
                     checkAnswerAndCalculateTime();
                     JOptionPane.showMessageDialog(null, "정답입니다람쥐.");
                    main.getThirdScore();

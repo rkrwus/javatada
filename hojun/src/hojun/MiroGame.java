@@ -7,10 +7,10 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class MiroGame extends JPanel {
-    private int playerX = 10;
-    private int playerY = 720;
-    private final int playerWidth = 55;
-    private final int playerHeight = 75;
+    private int playerX = 30;
+    private int playerY = 590;
+    private final int playerWidth = 40;
+    private final int playerHeight = 60;
     private Timer gameTimer;
     private long startTime;
     private JPanel startPanel;
@@ -18,12 +18,12 @@ public class MiroGame extends JPanel {
     private JLabel timerLabel = new JLabel();
     MainSystem main;
 
-    public MiroGame(MainSystem main) {
+    public MiroGame(MainSystem main){
     	this.main = main;
         setLayout(new BorderLayout());
 
         ImageIcon loadingImageIcon = new ImageIcon("images/loading2.jpg");
-        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(1536, 864, Image.SCALE_DEFAULT));
+        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT));
 
         JLabel loadingLabel = new JLabel(loadingImageIcon);
 
@@ -104,18 +104,18 @@ public class MiroGame extends JPanel {
     private boolean checkCollision(int x, int y) {
         Rectangle playerBounds = new Rectangle(x, y, playerWidth, playerHeight);
 
-        Rectangle building1Bounds = new Rectangle(610, 480, 480, 500);
-        Rectangle building2Bounds = new Rectangle(10, 425, 480,280);
-        Rectangle building3Bounds = new Rectangle(520, 90, 480, 280);
-        Rectangle building4Bounds = new Rectangle(1000, 90, 480, 280);
-        Rectangle building5Bounds = new Rectangle(1090, 480, 480, 280);
+        Rectangle building1Bounds = new Rectangle(535, 385, 384, 1000);
+        Rectangle building2Bounds = new Rectangle(70, 355, 384, 224);
+        Rectangle building3Bounds = new Rectangle(490, 0, 384, 309);
+        Rectangle building4Bounds = new Rectangle(875, 85, 384, 224);
+        Rectangle building5Bounds = new Rectangle(920, 385, 384, 224);
 
         if (playerBounds.intersects(building1Bounds) ||
                 playerBounds.intersects(building2Bounds) ||
                 playerBounds.intersects(building3Bounds) ||
                 playerBounds.intersects(building4Bounds)) {
-            playerX = 10;
-            playerY = 720;
+            playerX = 30;
+            playerY = 590;
             repaint();
             return true;
         } else if (playerBounds.intersects(building5Bounds)) {
@@ -147,11 +147,11 @@ public class MiroGame extends JPanel {
         Image img = icon.getImage();
 
         g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-        g.drawImage(Building1.getImage(), 610, 480, 480, 280, this);
-        g.drawImage(Building2.getImage(), 10, 425, 480, 280, this);
-        g.drawImage(Building3.getImage(), 520, 90, 480, 280, this);
-        g.drawImage(Building4.getImage(), 1000, 90, 480, 280, this);
-        g.drawImage(Building5.getImage(), 1090, 480, 480, 280, this);
+        g.drawImage(Building1.getImage(), 535, 385, 384, 224, this);
+        g.drawImage(Building2.getImage(), 70, 355, 384, 224, this);
+        g.drawImage(Building3.getImage(), 490, 85, 384, 224, this);
+        g.drawImage(Building4.getImage(), 875, 85, 384, 224, this);
+        g.drawImage(Building5.getImage(), 920, 385, 384, 224, this);
         g.drawImage(playerIcon.getImage(), playerX, playerY, playerWidth, playerHeight, this);
     }
 
@@ -159,11 +159,11 @@ public class MiroGame extends JPanel {
         return (int)elapsedTime;
     }
 
- /* public static main(String[] args) {
+    /* public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setTitle("바뀐 시험장으로 찾아가자!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(2560, 1440);
+        frame.setSize(1280, 720);
 
         MiroGame miroGame = new MiroGame();
         frame.add(miroGame);

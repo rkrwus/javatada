@@ -22,7 +22,7 @@ public class TimerGame extends JPanel {
         setLayout(new BorderLayout());
 
         ImageIcon loadingImageIcon = new ImageIcon("images/loading1.jpg");
-        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(1536, 864, Image.SCALE_DEFAULT));
+        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT));
 
         JLabel loadingLabel = new JLabel(loadingImageIcon);
 
@@ -49,19 +49,19 @@ public class TimerGame extends JPanel {
         revalidate();
 
         ImageIcon gameImageIcon = new ImageIcon("images/GameImage.jpg");
-        gameImageIcon = new ImageIcon(gameImageIcon.getImage().getScaledInstance(1536, 864, Image.SCALE_DEFAULT));
+        gameImageIcon = new ImageIcon(gameImageIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT));
 
         JLabel gameImageLabel = new JLabel(gameImageIcon);
         gameImageLabel.setBounds(0, 0, 1280, 720);
         gamePanel.add(gameImageLabel);
 
         timerLabel = new JLabel("0");
-        timerLabel.setFont(new Font("TimesRoman", Font.ITALIC, 250));
-        timerLabel.setBounds(900, -100, getWidth(), getHeight());
+        timerLabel.setFont(new Font("TimesRoman", Font.ITALIC, 200));
+        timerLabel.setBounds(760, -70, getWidth(), getHeight());
         gameImageLabel.add(timerLabel);
 
         stopButton = new JButton("스탑");
-        stopButton.setBounds(900, 450, 300, 100);
+        stopButton.setBounds(740, 350, 300, 100);
         gameImageLabel.add(stopButton);
 
         stopButton.addActionListener(new ActionListener() {
