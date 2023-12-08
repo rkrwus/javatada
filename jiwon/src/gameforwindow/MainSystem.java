@@ -240,6 +240,7 @@ public class MainSystem extends JFrame {
 		exitBtn.setBounds(WIDTH/2+65, 330, 100, 60);
 //		exitBtn.setBorderPainted(false);
 		
+		getContentPane().removeAll();
 		imgPanel.add(playBtn);
 		imgPanel.add(rankBtn);
 		imgPanel.add(exitBtn);
