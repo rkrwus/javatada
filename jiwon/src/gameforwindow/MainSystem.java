@@ -181,12 +181,17 @@ public class MainSystem extends JFrame {
 		setVisible(true);
 	}
 
-	void operateRankingSystem() {	
-		int totalTime;
-		totalTime = firstScore + secondScore + thirdScore + fourthScore;
-		totalScore = convertTimeToScore(totalTime);
+	void operateRankingSystem(boolean addNew) {	
+		RankingSystem rs;
 		
-		RankingSystem rs = new RankingSystem(this, totalScore);
+		if (addNew == true) {
+			totalScore = firstScore + secondScore + thirdScore + fourthScore;
+			totalScore = convertTimeToScore(totalScore);	
+			rs = new RankingSystem(this, totalScore);
+		} else {
+			rs = new RankingSystem(this);
+		}
+		
 		add(rs);
 		setVisible(true);
 		setFocusable(true);
@@ -215,15 +220,29 @@ public class MainSystem extends JFrame {
 		imgPanel.setLayout(null);
 
 		JButton playBtn = new JButton("PLAY");
-		playBtn.setFont(new Font("Mistral", Font.PLAIN, 50));
+		playBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
 		playBtn.setForeground(new Color(25, 77, 51));
 		playBtn.setBackground(new Color(240, 248, 255));
-		playBtn.setBounds(WIDTH/2-250, 330, 500, 80);
+		playBtn.setBounds(WIDTH/2-185, 330, 100, 60);
 //		playBtn.setBorderPainted(false);
 		
-		getContentPane().removeAll();
+		JButton rankBtn = new JButton("RANKING");
+		rankBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
+		rankBtn.setForeground(new Color(25, 77, 51));
+		rankBtn.setBackground(new Color(240, 248, 255));
+		rankBtn.setBounds(WIDTH/2-85, 330, 150, 60);
+//		rankBtn.setBorderPainted(false);
+		
+		JButton exitBtn = new JButton("EXIT");
+		exitBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
+		exitBtn.setForeground(new Color(25, 77, 51));
+		exitBtn.setBackground(new Color(240, 248, 255));
+		exitBtn.setBounds(WIDTH/2+65, 330, 100, 60);
+//		exitBtn.setBorderPainted(false);
 		
 		imgPanel.add(playBtn);
+		imgPanel.add(rankBtn);
+		imgPanel.add(exitBtn);
 		add(imgPanel);
 
 		playBtn.addActionListener(new ActionListener() {
@@ -236,6 +255,27 @@ public class MainSystem extends JFrame {
 				repaint();
 
 				playFirstStory();
+			}
+		});
+		
+		rankBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("rank button pressed");
+				
+				remove(imgPanel);
+				revalidate();
+				repaint();
+
+				operateRankingSystem(false);
+			}
+		});
+		
+		exitBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("exit button pressed");
+				System.exit(1);
 			}
 		});
 	}
