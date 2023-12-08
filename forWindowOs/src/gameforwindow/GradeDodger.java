@@ -360,11 +360,11 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
     private void loadImages() {
         try {
         	 // Print the URLs to the console --> 경로 확인용
-        	System.out.println("player.png URL: " + getClass().getResource("/player.png"));
+        	System.out.println("player.jpg URL: " + getClass().getResource("/player.jpg"));
             System.out.println("f.png URL: " + getClass().getResource("/f.png"));
             System.out.println("a.png URL: " + getClass().getResource("/a.png"));
         	
-            plImage = ImageIO.read(getClass().getResource("/player.png"));
+            plImage = ImageIO.read(getClass().getResource("/player.jpg"));
             fImage = ImageIO.read(getClass().getResource("/f.png"));
             aImage = ImageIO.read(getClass().getResource("/a.png"));
         } catch (Exception e) {
