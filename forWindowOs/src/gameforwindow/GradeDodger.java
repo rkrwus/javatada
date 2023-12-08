@@ -45,16 +45,20 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
     	setLayout(new BorderLayout());
 		ImagePanel imgPanel = new ImagePanel(new ImageIcon("images/gradeDodgerBackground.jpg").getImage());
 		imgPanel.setLayout(null);
-
-		rewindButton = new JButton("뒤로가기");
-        rewindButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainSystem.rewind7();
-            }
-        });
-        
-        //add(rewindButton, BorderLayout.WEST);
+		
+		rewindButton = new JButton();
+		ImageIcon backIcon = new ImageIcon("images/rewind.png");
+		rewindButton.setIcon(backIcon);
+		rewindButton.setBounds(5, 5, 70, 70);
+		add(rewindButton);
+			
+		rewindButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rewind();
+			}
+		});
+		imgPanel.add(rewindButton);
 		
         add(imgPanel);
         
@@ -382,7 +386,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
         Graphics2D g2d = (Graphics2D) g;
         
         if(gameOn = true) {
-        	Font font = new Font("Arial", Font.BOLD, 20);
+        	Font font = new Font("",Font.BOLD, 80);
         	g2d.setFont(font);  // 폰트 설정.
         
         	g2d.setColor(Color.BLUE);
@@ -409,7 +413,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
         	}
         
         	g2d.setColor(Color.green);
-        	g2d.drawString("point : " + point, 30, 50);
+        	g2d.drawString("기말고사 점수 : " + point, 265, 100);
         }else {
         	Font font = new Font("Mistral", Font.PLAIN, 50);
         	g2d.setFont(font);
@@ -427,7 +431,16 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
         revalidate();
         repaint();
         
-        mainSystem.operateRankingSystem();
+        mainSystem.operateRankingSystem(true);
+	}
+    private void rewind() {
+		setVisible(false);
+        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+ 
+        revalidate();
+        repaint();
+        
+        mainSystem.rewind7();
 	}
 	
 }

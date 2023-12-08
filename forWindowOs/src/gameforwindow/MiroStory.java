@@ -26,11 +26,10 @@ public class MiroStory extends JPanel{
 		startButton.setBackground(new Color(240, 248, 255));
 		startButton.setBounds(270, 450, 200, 70);
 		
-		rewindButton = new JButton("rewind");
-		rewindButton.setFont(new Font("Mistral", Font.PLAIN, 50));
-		rewindButton.setForeground(new Color(25, 77, 51));
-		rewindButton.setBackground(new Color(240, 248, 255));
-		rewindButton.setBounds(5, 5, 150, 60);
+		rewindButton = new JButton();
+		ImageIcon backIcon = new ImageIcon("images/rewind.png");
+		rewindButton.setIcon(backIcon);
+		rewindButton.setBounds(5, 5, 70, 70);
 		
 		imgPanel.add(rewindButton);
 		imgPanel.add(startButton);

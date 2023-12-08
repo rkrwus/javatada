@@ -63,7 +63,7 @@ public class MainSystem extends JFrame {
 		story2.requestFocus(); 
 		setResizable(false);
 		setVisible(true);
-		System.out.println("playFirstStory __ good");
+		System.out.println("playSecondStory __ good");
 	}
 	
 	void playThirdStory() {
@@ -74,7 +74,7 @@ public class MainSystem extends JFrame {
 		story3.requestFocus(); 
 		setResizable(false);
 		setVisible(true);
-		System.out.println("playFirstStory __ good");
+		System.out.println("playThirdStory __ good");
 	}
 	
 	void playFourthStory() {
@@ -181,12 +181,17 @@ public class MainSystem extends JFrame {
 		setVisible(true);
 	}
 
-	void operateRankingSystem() {	
-		int totalTime;
-		totalTime = firstScore + secondScore + thirdScore + fourthScore;
-		totalScore = convertTimeToScore(totalTime);
+	void operateRankingSystem(boolean addNew) {	
+		RankingSystem rs;
+
+		if (addNew == true) {
+			totalScore = firstScore + secondScore + thirdScore + fourthScore;
+			totalScore = convertTimeToScore(totalScore);	
+			rs = new RankingSystem(this, totalScore);
+		} else {
+			rs = new RankingSystem(this);
+		}
 		
-		RankingSystem rs = new RankingSystem(this, totalScore);
 		add(rs);
 		setVisible(true);
 		setFocusable(true);
@@ -215,14 +220,28 @@ public class MainSystem extends JFrame {
 		imgPanel.setLayout(null);
 
 		JButton playBtn = new JButton("PLAY");
-		playBtn.setFont(new Font("Mistral", Font.PLAIN, 50));
+		playBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
 		playBtn.setForeground(new Color(25, 77, 51));
 		playBtn.setBackground(new Color(240, 248, 255));
-		playBtn.setBounds(WIDTH/2-250, 330, 500, 80);
-//		playBtn.setBorderPainted(false);
+		playBtn.setBounds(WIDTH/2-185, 330, 100, 60);
+		
+		JButton rankBtn = new JButton("RANKING");
+		rankBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
+		rankBtn.setForeground(new Color(25, 77, 51));
+		rankBtn.setBackground(new Color(240, 248, 255));
+		rankBtn.setBounds(WIDTH/2-85, 330, 150, 60);
+//		rankBtn.setBorderPainted(false);
+
+		JButton exitBtn = new JButton("EXIT");
+		exitBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
+		exitBtn.setForeground(new Color(25, 77, 51));
+		exitBtn.setBackground(new Color(240, 248, 255));
+		exitBtn.setBounds(WIDTH/2+65, 330, 100, 60);
+//		exitBtn.setBorderPainted(false);
 		
 		getContentPane().removeAll();
-		
+		imgPanel.add(rankBtn);
+		imgPanel.add(exitBtn);
 		imgPanel.add(playBtn);
 		add(imgPanel);
 
@@ -236,6 +255,27 @@ public class MainSystem extends JFrame {
 				repaint();
 
 				playFirstStory();
+			}
+		});
+		
+		rankBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("rank button pressed");
+
+				remove(imgPanel);
+				revalidate();
+				repaint();
+
+				operateRankingSystem(false);
+			}
+		});
+
+		exitBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("exit button pressed");
+				System.exit(1);
 			}
 		});
 	}

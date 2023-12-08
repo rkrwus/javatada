@@ -10,7 +10,12 @@ class RankingSystem extends JPanel {
 	
 	MainSystem mainSystem;
 	private JTable rankTable;
-
+	
+	public RankingSystem(MainSystem mainSystem) {
+		this.mainSystem = mainSystem;
+		showRanking();
+	}
+	
 	public RankingSystem(MainSystem mainSystem, int score) {
 		this.mainSystem = mainSystem;
 		
@@ -48,39 +53,63 @@ class RankingSystem extends JPanel {
 		});
 	}
 
+	void showRanking() {
+//		신규 유저가 포함된 정렬 리스트를 반환받아 JTable 생성 후 랭킹 보여주기(포커스를 신규 유저에?)
+
+		ArrayList<User> userList = readRankFile("C:\\Temp\\rankFile.txt");
+		rankTable = tabulate(userList);
+		JScrollPane sp = new JScrollPane(rankTable);
+
+		JLabel lb = new JLabel("LEADER BOARD");
+		lb.setFont(new Font("Mistral", Font.PLAIN, 30));
+		lb.setHorizontalAlignment(JLabel.CENTER);
+		
+		JButton backBtn = new JButton("BACK");
+		backBtn.setFont(new Font("Mistral", Font.PLAIN, 20));
+
+		JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // FlowLayout을 사용하여 우측 정렬
+		backPanel.add(backBtn);
+		
+		setLayout(new BorderLayout());
+		add(sp, BorderLayout.CENTER);
+		add(lb, BorderLayout.NORTH);
+		add(backPanel, BorderLayout.SOUTH);
+
+		setSize(500, 500);
+		setVisible(true);
+
+		backBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeAll();
+				revalidate();
+				repaint();
+
+				mainSystem.replay();
+			}
+		});
+	}
+
 	void showRanking(User newUser) {
 //		신규 유저가 포함된 정렬 리스트를 반환받아 JTable 생성 후 랭킹 보여주기(포커스를 신규 유저에?)
 
 		ArrayList<User> sortList = sortRanking(newUser);
+		rankTable = tabulate(sortList);
+		JScrollPane sp = new JScrollPane(rankTable);
 
-		String[] title = { "Rank", "User", "Score" };
-		String[][] data = new String[sortList.size()][title.length];
-
-		for (int i = 0; i < sortList.size(); i++) {
-			User user = sortList.get(i);
-			data[i][0] = Integer.toString(user.getRank());
-			data[i][1] = user.getName();
-			data[i][2] = Integer.toString(user.getScore());
-		}
-
-		String lbText = newUser.getName() + "님의 순위는 " + newUser.getRank() + "위";
-		JLabel lb = new JLabel(lbText);
-		lb.setFont(new Font("", Font.PLAIN, 40));
+		JLabel lb = new JLabel(newUser.getName() + "님의 순위는 " + newUser.getRank() + "위");
+		lb.setFont(new Font("", Font.PLAIN, 30));
 		lb.setHorizontalAlignment(JLabel.CENTER);
 
-		rankTable = new JTable(data, title);
-		JScrollPane sp = new JScrollPane(rankTable);
+		JButton replayBtn = new JButton("REPLAY");
+		replayBtn.setFont(new Font("Mistral", Font.PLAIN, 20));
 		
-		JButton replayBtn = new JButton("다시하기");
-		replayBtn.setFont(new Font("", Font.PLAIN, 30));
-
+		JPanel replayPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // FlowLayout을 사용하여 우측 정렬
+		replayPanel.add(replayBtn);
 
 		setLayout(new BorderLayout());
 		add(sp, BorderLayout.CENTER);
 		add(lb, BorderLayout.NORTH);
-		
-		JPanel replayPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // FlowLayout을 사용하여 우측 정렬
-		replayPanel.add(replayBtn);
 		add(replayPanel, BorderLayout.SOUTH);
 		
 		setSize(500, 500);
@@ -96,6 +125,22 @@ class RankingSystem extends JPanel {
 				mainSystem.replay();
 			}
 		});
+	}
+	
+	JTable tabulate(ArrayList<User> list) {
+//		콜렉션 리스트를 표로 변환
+		String[] title = { "Rank", "User", "Score" };
+		String[][] data = new String[list.size()][title.length];
+
+		for (int i = 0; i < list.size(); i++) {
+			User user = list.get(i);
+			data[i][0] = Integer.toString(user.getRank());
+			data[i][1] = user.getName();
+			data[i][2] = Integer.toString(user.getScore());
+		}
+
+		JTable table = new JTable(data, title);
+		return table;
 	}
 
 	ArrayList<User> sortRanking(User newUser) {

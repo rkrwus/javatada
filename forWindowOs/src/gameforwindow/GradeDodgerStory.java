@@ -3,11 +3,11 @@ package gameforwindow;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.event.ActionEvent;
 
 public class GradeDodgerStory extends JPanel{
 	MainSystem mainSystem;
 	JButton startButton;
+	JButton rewindButton;
 	private int width;
 	private int height;
 	
@@ -19,7 +19,20 @@ public class GradeDodgerStory extends JPanel{
     	setLayout(new BorderLayout());
 		ImagePanel imgPanel = new ImagePanel(new ImageIcon("images/gdStory.png").getImage());
 		imgPanel.setLayout(null);
-        
+		
+		rewindButton = new JButton();
+		ImageIcon backIcon = new ImageIcon("images/rewind.png");
+		rewindButton.setIcon(backIcon);
+		rewindButton.setBounds(5, 5, 70, 70);
+	    add(rewindButton);
+			
+	    rewindButton.addActionListener(new ActionListener() {
+	    	@Override
+	    	public void actionPerformed(ActionEvent e) {
+	    		rewind();
+	    	}
+	    });
+		
 		startButton = new JButton("GO!!");
 		startButton.setFont(new Font("Mistral", Font.PLAIN, 50));
 		startButton.setForeground(new Color(25, 77, 51));
@@ -32,6 +45,7 @@ public class GradeDodgerStory extends JPanel{
             }
         });
 
+        imgPanel.add(rewindButton);
         imgPanel.add(startButton);
 		add(imgPanel);
 		
@@ -52,6 +66,14 @@ public class GradeDodgerStory extends JPanel{
         
 		mainSystem.playFourthGame();
 	}
-	
+	private void rewind() {
+		setVisible(false);
+        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+ 
+        revalidate();
+        repaint();
+        
+        mainSystem.rewind6();
+	}
 
 }
