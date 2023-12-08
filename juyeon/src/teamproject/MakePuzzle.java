@@ -114,17 +114,20 @@ public class MakePuzzle extends JPanel {
         add(puzzlePanel, BorderLayout.CENTER);
 
         JPanel inputPanel = new JPanel();
+        inputPanel.setPreferredSize(new Dimension(80,80));
         JLabel label = new JLabel("메모의 정답(특수기호, 띄어쓰기 제외):");
-        textField = new JTextField(20);
+        textField = new JTextField(30);
+        textField.setPreferredSize(new Dimension(30, 30));
+        label.setFont(new Font("Aial", Font.PLAIN,30));
         JButton submitButton = new JButton("정답 제출");
-
+        
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String inputText = textField.getText();
                 if (inputText.equals("교수님사랑합니다")) {
                     checkAnswerAndCalculateTime();
                     JOptionPane.showMessageDialog(null, "정답입니다람쥐.");
-                   main.getThirdScore();
+                    main.getThirdScore();
                 } else {
                     JOptionPane.showMessageDialog(null, "틀렸습니다. 다시 시도해주세요.");
                 }
@@ -171,16 +174,17 @@ public class MakePuzzle extends JPanel {
     }
     
 
-   /* public static void main(String[] args) {
+  /* public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 JFrame frame = new JFrame("Puzzle");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(2560, 1440);
+                frame.setSize(1280, 720);
                 frame.add(new MakePuzzle());
                 frame.setVisible(true);
             }
         });
-    } */
+    }*/ 
 }
+
 
