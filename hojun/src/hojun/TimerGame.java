@@ -57,7 +57,7 @@ public class TimerGame extends JPanel {
 
         timerLabel = new JLabel("0");
         timerLabel.setFont(new Font("TimesRoman", Font.ITALIC, 200));
-        timerLabel.setBounds(760, -70, getWidth(), getHeight());
+        timerLabel.setBounds(760, -90, getWidth(), getHeight());
         gameImageLabel.add(timerLabel);
 
         stopButton = new JButton("스탑");

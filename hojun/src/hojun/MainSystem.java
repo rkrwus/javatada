@@ -12,6 +12,7 @@ public class MainSystem extends JFrame {
 	MiroGame game2;
 	MakePuzzle game3;
 	GradeDodger game4;
+	GradeDodgerStory story4;
 	
 	private int firstScore;
 	private int secondScore;
@@ -26,6 +27,17 @@ public class MainSystem extends JFrame {
 		playPanel();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	void playFourthStory() {
+		story4 = new GradeDodgerStory(this);
+		setLocationRelativeTo(null);
+		add(story4);
+		story4.requestFocus(); 
+		setResizable(false);
+		setVisible(true);
+		setFocusable(true);
+		System.out.println("playFourthStory __ good");
 	}
 
 	void playFirstGame() {
@@ -64,15 +76,14 @@ public class MainSystem extends JFrame {
 	}
 	
 	void playFourthGame() {
-		game4 = new GradeDodger(this);
-		setLocationRelativeTo(null);
-		add(game4);
-		game4.requestFocus(); 
-		setResizable(false);
-		setVisible(true);
-		setFocusable(true);
-		System.out.println("playFourthGame __ good");
-	}
+	    game4 = new GradeDodger(this);
+	    getContentPane().removeAll(); // 기존에 추가된 컴포넌트를 제거
+	    getContentPane().setLayout(new BorderLayout());
+	    getContentPane().add(game4, BorderLayout.CENTER);      
+	    game4.requestFocus(); 
+	    setVisible(true);
+	    System.out.println("playFourthGame __ good");
+	   }
 	
 	void getFirstScore() {
 		System.out.println("getFirstScore");
@@ -102,6 +113,12 @@ public class MainSystem extends JFrame {
 		this.totalScore = 0;
 		playPanel();
 		setVisible(true);
+	}
+	
+	void rewind() {
+		fourthScore = 0;
+		getContentPane().removeAll();
+		playFourthStory();
 	}
 
 	void operateRankingSystem() {		
@@ -133,7 +150,7 @@ public class MainSystem extends JFrame {
 		playBtn.setFont(new Font("Mistral", Font.PLAIN, 50));
 		playBtn.setForeground(new Color(25, 77, 51));
 		playBtn.setBackground(new Color(240, 248, 255));
-		playBtn.setBounds(380, 330, 500, 80);
+		playBtn.setBounds(380, 340, 500, 80);
 //		playBtn.setBorderPainted(false);
 		
 		imgPanel.add(playBtn);

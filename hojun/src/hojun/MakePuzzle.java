@@ -48,7 +48,7 @@ public class MakePuzzle extends JPanel {
         });
         startButtonPanel.add(startButton);
 
-        imagePanel.add(startButtonPanel, BorderLayout.CENTER);
+        imagePanel.add(startButtonPanel, BorderLayout.SOUTH);
 
         add(imagePanel);
         setVisible(true);
