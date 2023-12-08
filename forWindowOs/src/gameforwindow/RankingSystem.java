@@ -19,9 +19,12 @@ class RankingSystem extends JPanel {
 	}
 
 	void getUserData(User newUser) {
-		JLabel label = new JLabel("이름: ");
-		JTextField txtName = new JTextField(10);
-		JButton confirmBtn = new JButton("확인");
+		JLabel label = new JLabel("이름 : ");
+	    label.setFont(new Font("", Font.PLAIN, 20));
+	    JTextField txtName = new JTextField(20);
+	    txtName.setPreferredSize(new Dimension(20, 35));
+	    JButton confirmBtn = new JButton("확인");
+	    confirmBtn.setFont(new Font("", Font.PLAIN, 20));
 
 		add(label);
 		add(txtName);

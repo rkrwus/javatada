@@ -33,30 +33,10 @@ public class MiroGame extends JPanel {
     	this.height = main.getHeight();
     	
         setLayout(new BorderLayout());
-
-        ImageIcon loadingImageIcon = new ImageIcon("images/loading2.jpg");
-        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
-
-        JLabel loadingLabel = new JLabel(loadingImageIcon);
-
-        JButton startButton = new JButton("시작하기");
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startGame();
-            }
-        });
-
-        startPanel = new JPanel(new BorderLayout());
-        startPanel.add(loadingLabel, BorderLayout.CENTER);
-        startPanel.add(startButton, BorderLayout.SOUTH);
-        startPanel.add(timerLabel, BorderLayout.NORTH);
-
-        add(startPanel, BorderLayout.CENTER);
+        startGame();
     }
 
     private void startGame() {
-        startPanel.setVisible(false);
         setFocusable(true);
         requestFocusInWindow();
         startTime = System.currentTimeMillis();
@@ -178,7 +158,7 @@ public class MiroGame extends JPanel {
         revalidate();
         repaint();
         
-        main.playThirdGame();
+        main.playThirdStory();
 	}
 
  /* public static main(String[] args) {

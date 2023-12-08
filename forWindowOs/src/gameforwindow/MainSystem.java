@@ -15,6 +15,9 @@ public class MainSystem extends JFrame {
 	MakePuzzle game3;
 	GradeDodger game4;
 	
+	TimerStory story1;
+	MiroStory story2;
+	PuzzleStory story3;
 	GradeDodgerStory story4;
 	
 	private int firstScore = 0;
@@ -41,26 +44,54 @@ public class MainSystem extends JFrame {
 		return HEIGHT;
 	}
 	
-	void playFirstStory() {}
+	void playFirstStory() {
+		story1 = new TimerStory(this);
+		setLocationRelativeTo(null);
+		getContentPane().removeAll();
+		add(story1);
+		story1.requestFocus(); 
+		setResizable(false);
+		setVisible(true);
+		System.out.println("playFirstStory __ good");
+	}
 	
-	void playSecondStory() {}
+	void playSecondStory() {
+		story2 = new MiroStory(this);
+		setLocationRelativeTo(null);
+		getContentPane().removeAll();
+		add(story2);
+		story2.requestFocus(); 
+		setResizable(false);
+		setVisible(true);
+		System.out.println("playFirstStory __ good");
+	}
 	
-	void playThirdStory() {}
+	void playThirdStory() {
+		story3 = new PuzzleStory(this);
+		setLocationRelativeTo(null);
+		getContentPane().removeAll();
+		add(story3);
+		story3.requestFocus(); 
+		setResizable(false);
+		setVisible(true);
+		System.out.println("playFirstStory __ good");
+	}
 	
 	void playFourthStory() {
 		story4 = new GradeDodgerStory(this);
 		setLocationRelativeTo(null);
+		getContentPane().removeAll();
 		add(story4);
 		story4.requestFocus(); 
 		setResizable(false);
 		setVisible(true);
-		setFocusable(true);
 		System.out.println("playFourthStory __ good");
 	}
 
 	void playFirstGame() {
 	      System.out.println("playFirstGame");
 	      game1 = new TimerGame(this);
+	      getContentPane().removeAll();
 	      add(game1);
 	      game1.requestFocus(); 
 	      setVisible(true);
@@ -70,6 +101,7 @@ public class MainSystem extends JFrame {
 	   void playSecondGame() {
 	      System.out.println("playSecondGame");
 	      game2 = new MiroGame(this);
+	      getContentPane().removeAll();
 	      add(game2);
 	      game2.requestFocus();
 	      setVisible(true);
@@ -78,6 +110,7 @@ public class MainSystem extends JFrame {
 	   
 	   void playThirdGame() {
 	      game3 = new MakePuzzle(this);
+	      getContentPane().removeAll();
 	      add(game3);
 	      game3.requestFocus();
 	      setVisible(true);
@@ -86,9 +119,8 @@ public class MainSystem extends JFrame {
 	   
 	   void playFourthGame() {
 	      game4 = new GradeDodger(this);
-	      getContentPane().removeAll(); // 기존에 추가된 컴포넌트를 제거
-	      getContentPane().setLayout(new BorderLayout());
-	      getContentPane().add(game4, BorderLayout.CENTER);
+	      getContentPane().removeAll();// 기존에 추가된 컴포넌트를 제거
+	      add(game4);
 	      game4.requestFocus(); 
 	      setVisible(true);
 	      System.out.println("playFourthGame __ good");
@@ -118,10 +150,29 @@ public class MainSystem extends JFrame {
 		System.out.println("getFourthScore __ ok" + fourthScore);
 	}
 	
-	void rewind() {
-		fourthScore = 0;
-		getContentPane().removeAll();
+	void rewind1() {
+		
+	}
+	void rewind2() {
+		
+	}
+	void rewind3() {
+		playSecondStory();
+	}
+	void rewind4() {
+		playSecondGame();
+	}
+	void rewind5() {
+		playThirdStory();
+	}
+	void rewind6() {
+		playThirdGame();
+	}
+	void rewind7() {
 		playFourthStory();
+	}
+	void rewindToOrigin() {
+		playPanel();
 	}
 
 	void replay() {
@@ -159,7 +210,6 @@ public class MainSystem extends JFrame {
 		}
 
 	void playPanel() {
-
 		setLayout(new BorderLayout());
 		ImagePanel imgPanel = new ImagePanel(new ImageIcon("images/start.jpg").getImage());
 		imgPanel.setLayout(null);
@@ -170,6 +220,8 @@ public class MainSystem extends JFrame {
 		playBtn.setBackground(new Color(240, 248, 255));
 		playBtn.setBounds(WIDTH/2-250, 330, 500, 80);
 //		playBtn.setBorderPainted(false);
+		
+		getContentPane().removeAll();
 		
 		imgPanel.add(playBtn);
 		add(imgPanel);
@@ -183,27 +235,9 @@ public class MainSystem extends JFrame {
 				revalidate();
 				repaint();
 
-				playFirstGame();
+				playFirstStory();
 			}
 		});
-	}
-
-	class ImagePanel extends JPanel {
-		private Image img;
-
-		public ImagePanel(Image img) {
-			this.img = img;
-			setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
-			setLayout(null);
-		}
-
-		@Override
-		public void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			if (img != null) {
-				g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-			}
-		}
 	}
 
 	public static void main(String[] args) {

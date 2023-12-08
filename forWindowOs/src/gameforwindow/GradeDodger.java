@@ -42,23 +42,22 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		this.width = mainSystem.getWidth();
     	this.height = mainSystem.getHeight();
     	
-    	ImageIcon loadingImageIcon = new ImageIcon("images/gradeDodgerBackground.jpg");
-        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+    	setLayout(new BorderLayout());
+		ImagePanel imgPanel = new ImagePanel(new ImageIcon("images/gradeDodgerBackground.jpg").getImage());
+		imgPanel.setLayout(null);
 
-        JLabel loadingLabel = new JLabel(loadingImageIcon);
-    
-		setLayout(new BorderLayout());
-		
 		rewindButton = new JButton("뒤로가기");
         rewindButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainSystem.rewind();
+                mainSystem.rewind7();
             }
         });
-        add(loadingLabel, BorderLayout.CENTER);
+        
         //add(rewindButton, BorderLayout.WEST);
 		
+        add(imgPanel);
+        
 		player = new Player(width/2-30, height -83, 80, 60, 20); // 60, 44, 7 - 플레이어 너비 높이 속도
 		fs = new ArrayList<>();
 		f2s = new ArrayList<>();
@@ -235,7 +234,9 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	    gameOverLabel.setBounds((width-400)/2, (height-80)/2, 400, 80);
 	    add(gameOverLabel);
 	    repaint();
-
+	    
+	    JOptionPane.showMessageDialog(null, "!!!Game Clear!!!");
+	    /*
 	    // timer 사용.
 	    Timer delayTimer = new Timer(3000, new ActionListener() {
 	        @Override
@@ -245,10 +246,12 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	    });
 	    delayTimer.setRepeats(false); // 한번만 실행.
 	    delayTimer.start();
+	    */
 	    
 	    System.out.println("clear in " + (endTime - startTime) + " ms");
 	    System.out.println(getScore());
 	    sendScore();
+	    clearPanel();
 	}
 /*게임 오버 존재 x	
 	private void gameOver() {
@@ -303,7 +306,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		spawnF();
 		spawnF2();
 		spawnF3();
-    	spawnA();
+		spawnA();
         moveFs();
         moveF2s();
         moveF3s();

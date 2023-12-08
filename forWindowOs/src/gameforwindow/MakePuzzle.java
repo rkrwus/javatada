@@ -19,38 +19,9 @@ public class MakePuzzle extends JPanel {
     public MakePuzzle(MainSystem main) {
        this.main = main;
         setLayout(new BorderLayout());
-
-        JPanel imagePanel = new JPanel() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                if (image != null) {
-                    g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-                }
-            }
-        };
-        imagePanel.setLayout(new BorderLayout());
-
-        try {
-            loadImage("images/exam.png");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        JPanel startButtonPanel = new JPanel(new GridBagLayout());
-        startButtonPanel.setOpaque(false);
-
-        JButton startButton = new JButton("시작하기");
-        startButton.setPreferredSize(new Dimension(200, 50));
-        startButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                startPuzzleGame();
-            }
-        });
-        startButtonPanel.add(startButton);
-
-        imagePanel.add(startButtonPanel, BorderLayout.CENTER);
-
-        add(imagePanel);
+        
+        startPuzzleGame();
+        
         setVisible(true);
     }
 
