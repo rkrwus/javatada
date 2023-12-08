@@ -15,7 +15,7 @@ class RankingSystem extends JPanel {
 		this.mainSystem = mainSystem;
 		showRanking();
 	}
-
+	
 	public RankingSystem(MainSystem mainSystem, int score) {
 		this.mainSystem = mainSystem;
 		
@@ -52,7 +52,7 @@ class RankingSystem extends JPanel {
 			}
 		});
 	}
-	
+
 	void showRanking() {
 //		신규 유저가 포함된 정렬 리스트를 반환받아 JTable 생성 후 랭킹 보여주기(포커스를 신규 유저에?)
 
@@ -66,15 +66,15 @@ class RankingSystem extends JPanel {
 		
 		JButton backBtn = new JButton("BACK");
 		backBtn.setFont(new Font("Mistral", Font.PLAIN, 20));
-		
+
 		JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // FlowLayout을 사용하여 우측 정렬
 		backPanel.add(backBtn);
-
+		
 		setLayout(new BorderLayout());
 		add(sp, BorderLayout.CENTER);
 		add(lb, BorderLayout.NORTH);
 		add(backPanel, BorderLayout.SOUTH);
-		
+
 		setSize(500, 500);
 		setVisible(true);
 
@@ -84,7 +84,7 @@ class RankingSystem extends JPanel {
 				removeAll();
 				revalidate();
 				repaint();
-				
+
 				mainSystem.replay();
 			}
 		});
@@ -100,7 +100,7 @@ class RankingSystem extends JPanel {
 		JLabel lb = new JLabel(newUser.getName() + "님의 순위는 " + newUser.getRank() + "위");
 		lb.setFont(new Font("", Font.PLAIN, 30));
 		lb.setHorizontalAlignment(JLabel.CENTER);
-		
+
 		JButton replayBtn = new JButton("REPLAY");
 		replayBtn.setFont(new Font("Mistral", Font.PLAIN, 20));
 		
@@ -138,7 +138,7 @@ class RankingSystem extends JPanel {
 			data[i][1] = user.getName();
 			data[i][2] = Integer.toString(user.getScore());
 		}
-		
+
 		JTable table = new JTable(data, title);
 		return table;
 	}

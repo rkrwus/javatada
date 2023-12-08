@@ -15,10 +15,27 @@ public class MakePuzzle extends JPanel {
     private long endTime;
     private int timeInSeconds;
     MainSystem main;
+    
+    JButton rewindButton;
    
     public MakePuzzle(MainSystem main) {
        this.main = main;
-        setLayout(new BorderLayout());
+       setLayout(new BorderLayout());
+        
+       rewindButton = new JButton();
+		ImageIcon backIcon = new ImageIcon("images/rewind.png");
+		rewindButton.setIcon(backIcon);
+		rewindButton.setBounds(5, 5, 70, 70);
+       add(rewindButton);
+		
+       rewindButton.addActionListener(new ActionListener() {
+    	   @Override
+    	   public void actionPerformed(ActionEvent e) {
+    		   rewind();
+            }
+        });
+		
+		add(rewindButton);
         
         startPuzzleGame();
         
@@ -52,7 +69,6 @@ public class MakePuzzle extends JPanel {
     }
 
     private void startPuzzleGame() {
-        removeAll();
         revalidate();
 
         try {
@@ -100,6 +116,7 @@ public class MakePuzzle extends JPanel {
         textField.setPreferredSize(new Dimension(30, 30));
         label.setFont(new Font("Aial", Font.PLAIN,30));
         JButton submitButton = new JButton("정답 제출");
+        
 
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -174,5 +191,14 @@ public class MakePuzzle extends JPanel {
         repaint();
         
         main.playFourthStory();
+	}
+    private void rewind() {
+		setVisible(false);
+        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+ 
+        revalidate();
+        repaint();
+        
+        main.rewind5();
 	}
 }

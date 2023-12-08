@@ -63,7 +63,7 @@ public class MainSystem extends JFrame {
 		story2.requestFocus(); 
 		setResizable(false);
 		setVisible(true);
-		System.out.println("playFirstStory __ good");
+		System.out.println("playSecondStory __ good");
 	}
 	
 	void playThirdStory() {
@@ -74,7 +74,7 @@ public class MainSystem extends JFrame {
 		story3.requestFocus(); 
 		setResizable(false);
 		setVisible(true);
-		System.out.println("playFirstStory __ good");
+		System.out.println("playThirdStory __ good");
 	}
 	
 	void playFourthStory() {
@@ -183,7 +183,7 @@ public class MainSystem extends JFrame {
 
 	void operateRankingSystem(boolean addNew) {	
 		RankingSystem rs;
-		
+
 		if (addNew == true) {
 			totalScore = firstScore + secondScore + thirdScore + fourthScore;
 			totalScore = convertTimeToScore(totalScore);	
@@ -224,7 +224,6 @@ public class MainSystem extends JFrame {
 		playBtn.setForeground(new Color(25, 77, 51));
 		playBtn.setBackground(new Color(240, 248, 255));
 		playBtn.setBounds(WIDTH/2-185, 330, 100, 60);
-//		playBtn.setBorderPainted(false);
 		
 		JButton rankBtn = new JButton("RANKING");
 		rankBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
@@ -232,7 +231,7 @@ public class MainSystem extends JFrame {
 		rankBtn.setBackground(new Color(240, 248, 255));
 		rankBtn.setBounds(WIDTH/2-85, 330, 150, 60);
 //		rankBtn.setBorderPainted(false);
-		
+
 		JButton exitBtn = new JButton("EXIT");
 		exitBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
 		exitBtn.setForeground(new Color(25, 77, 51));
@@ -241,9 +240,9 @@ public class MainSystem extends JFrame {
 //		exitBtn.setBorderPainted(false);
 		
 		getContentPane().removeAll();
-		imgPanel.add(playBtn);
 		imgPanel.add(rankBtn);
 		imgPanel.add(exitBtn);
+		imgPanel.add(playBtn);
 		add(imgPanel);
 
 		playBtn.addActionListener(new ActionListener() {
@@ -263,7 +262,7 @@ public class MainSystem extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("rank button pressed");
-				
+
 				remove(imgPanel);
 				revalidate();
 				repaint();
@@ -271,7 +270,7 @@ public class MainSystem extends JFrame {
 				operateRankingSystem(false);
 			}
 		});
-		
+
 		exitBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
