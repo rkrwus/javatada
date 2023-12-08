@@ -60,14 +60,17 @@ class RankingSystem extends JPanel {
 			data[i][2] = Integer.toString(user.getScore());
 		}
 
-		JLabel lb = new JLabel(newUser.getName() + "님의 순위는 " + newUser.getRank() + "위");
+		String lbText = newUser.getName() + "님의 순위는 " + newUser.getRank() + "위";
+		JLabel lb = new JLabel(lbText);
+		lb.setFont(new Font("", Font.PLAIN, 40));
 		lb.setHorizontalAlignment(JLabel.CENTER);
 
 		rankTable = new JTable(data, title);
 		JScrollPane sp = new JScrollPane(rankTable);
 		
 		JButton replayBtn = new JButton("다시하기");
-		replayBtn.setBorderPainted(false);
+		replayBtn.setFont(new Font("", Font.PLAIN, 30));
+
 
 		setLayout(new BorderLayout());
 		add(sp, BorderLayout.CENTER);
