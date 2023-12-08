@@ -2,11 +2,20 @@ package hojun;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class MiroGame extends JPanel {
+	JButton rewindButton;
+	private int width;
+	private int height;
+	
+	private int[] b1 = {535, 385, 384, 224};
+	private int[] b2 = {70, 355, 384, 224};
+	private int[] b3 = {490, 85, 384, 224};
+	private int[] b4 = {875, 85, 384, 224};
+	private int[] b5 = {920, 385, 384, 224};
+	
     private int playerX = 30;
     private int playerY = 590;
     private final int playerWidth = 40;
@@ -18,31 +27,31 @@ public class MiroGame extends JPanel {
     private JLabel timerLabel = new JLabel();
     MainSystem main;
 
-    public MiroGame(MainSystem main){
+    public MiroGame(MainSystem main) {
     	this.main = main;
-        setLayout(new BorderLayout());
-
-        ImageIcon loadingImageIcon = new ImageIcon("images/loading2.jpg");
-        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT));
-
-        JLabel loadingLabel = new JLabel(loadingImageIcon);
-
-        JButton startButton = new JButton("시작하기");
-        startButton.addActionListener(new ActionListener() {
+    	this.width = main.getWidth();
+    	this.height = main.getHeight();
+        
+    	//"images/map.jpg"
+    	
+    	rewindButton = new JButton();
+		ImageIcon backIcon = new ImageIcon("images/rewind.png");
+		rewindButton.setIcon(backIcon);
+		rewindButton.setBounds(5, 5, 70, 70);
+		
+		add(rewindButton);
+        
+		rewindButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startGame();
+            	rewind();
             }
         });
-
-        startPanel = new JPanel(new BorderLayout());
-        startPanel.add(loadingLabel, BorderLayout.CENTER);
-        startPanel.add(startButton, BorderLayout.SOUTH);
-        add(startPanel, BorderLayout.CENTER);
+		
+        startGame();
     }
 
     private void startGame() {
-        startPanel.setVisible(false);
         setFocusable(true);
         requestFocusInWindow();
         startTime = System.currentTimeMillis();
@@ -102,11 +111,11 @@ public class MiroGame extends JPanel {
     private boolean checkCollision(int x, int y) {
         Rectangle playerBounds = new Rectangle(x, y, playerWidth, playerHeight);
 
-        Rectangle building1Bounds = new Rectangle(535, 385, 384, 1000);
-        Rectangle building2Bounds = new Rectangle(70, 355, 384, 224);
-        Rectangle building3Bounds = new Rectangle(490, 0, 384, 309);
-        Rectangle building4Bounds = new Rectangle(875, 85, 384, 224);
-        Rectangle building5Bounds = new Rectangle(920, 385, 384, 224);
+        Rectangle building1Bounds = new Rectangle(b1[0], b1[1], b1[2], b1[3]+1000);
+        Rectangle building2Bounds = new Rectangle(-1000, b2[1], 1454, b2[3]);
+        Rectangle building3Bounds = new Rectangle(b3[0], b3[1], b3[2], b3[3]);
+        Rectangle building4Bounds = new Rectangle(b4[0], b4[1], b4[2], b4[3]);
+        Rectangle building5Bounds = new Rectangle(b5[0], b5[1], b5[2], b5[3]);
 
         if (playerBounds.intersects(building1Bounds) ||
                 playerBounds.intersects(building2Bounds) ||
@@ -123,7 +132,7 @@ public class MiroGame extends JPanel {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(MiroGame.this);
             JOptionPane.showMessageDialog(parentFrame, "미션 성공했습니다!\n걸린 시간: " + df.format(elapsedTime / 1000.0) + "초");
             main.getSecondScore();
-            main.playThirdGame();
+            clearPanel();
             return true;
         }
 
@@ -145,29 +154,45 @@ public class MiroGame extends JPanel {
         Image img = icon.getImage();
 
         g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-        g.drawImage(Building1.getImage(), 535, 385, 384, 224, this);
-        g.drawImage(Building2.getImage(), 70, 355, 384, 224, this);
-        g.drawImage(Building3.getImage(), 490, 85, 384, 224, this);
-        g.drawImage(Building4.getImage(), 875, 85, 384, 224, this);
-        g.drawImage(Building5.getImage(), 920, 385, 384, 224, this);
+        g.drawImage(Building1.getImage(), b1[0], b1[1], b1[2], b1[3], this);
+        g.drawImage(Building2.getImage(), b2[0], b2[1], b2[2], b2[3], this);
+        g.drawImage(Building3.getImage(), b3[0], b3[1], b3[2], b3[3], this);
+        g.drawImage(Building4.getImage(), b4[0], b4[1], b4[2], b4[3], this);
+        g.drawImage(Building5.getImage(), b5[0], b5[1], b5[2], b5[3], this);
         g.drawImage(playerIcon.getImage(), playerX, playerY, playerWidth, playerHeight, this);
     }
 
     public int getScore() {
-        return (int)elapsedTime;
+        return (int)elapsedTime/1000;
     }
+    
+    private void clearPanel() {   
+    	setVisible(false);
+        removeAll();
+ 
+        revalidate();
+        repaint();
+        
+        main.playThirdStory();
+	}
+    private void rewind() {
+		setVisible(false);
+        removeAll();
+ 
+        revalidate();
+        repaint();
+        
+        main.rewind3();
+	}
 
-    /* public static void main(String[] args) {
+ /* public static main(String[] args) {
         JFrame frame = new JFrame();
         frame.setTitle("바뀐 시험장으로 찾아가자!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1280, 720);
+        frame.setSize(2560, 1440);
 
         MiroGame miroGame = new MiroGame();
         frame.add(miroGame);
         frame.setVisible(true);
     } */
 }
-
-
-

@@ -36,93 +36,29 @@ public class TimerGame extends JPanel {
         JLabel gameImageLabel = new JLabel(gameImageIcon);
         gamePanel.add(gameImageLabel, BorderLayout.CENTER);
         
+        rewindButton = new JButton();
+		ImageIcon backIcon = new ImageIcon("images/rewind.png");
+		rewindButton.setIcon(backIcon);
+		rewindButton.setBounds(5, 5, 70, 70);
+		gameImageLabel.add(rewindButton);
+        
         stopButton = new JButton("8.8초에서 9초 사이에 멈춰라!");
         stopButton.setBounds(740, 350, 300, 100);
         gameImageLabel.add(stopButton);
-
-        stopButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                stopGame();
-            }
-        });
-        startTime = System.currentTimeMillis();
-
-        gameTimer = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                long elapsedTime = System.currentTimeMillis() - startTime;
-                double seconds = elapsedTime / 1000.0;
-                timerLabel.setText(String.format("%.1f", seconds));
-            }
-        });
-
-        gameTimer.start();
-    	
-        /*setLayout(new BorderLayout());
-
-        ImageIcon loadingImageIcon = new ImageIcon("images/loading1.jpg");
-        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT));
-
-        JLabel loadingLabel = new JLabel(loadingImageIcon);
-
-        startButton = new JButton("시작하기");
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startGame();
-            }
-        });
-
-        startPanel = new JPanel(new BorderLayout());
-        startPanel.add(loadingLabel, BorderLayout.CENTER);
-        startPanel.add(startButton, BorderLayout.SOUTH);
-
-        add(startPanel, BorderLayout.CENTER);*/
-    }
-
-    /* private void startGame() {
-    	remove(startPanel);
-        gamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        setLayout(new BorderLayout());
-        add(gamePanel, BorderLayout.CENTER);
-        revalidate();
-
-        ImageIcon gameImageIcon = new ImageIcon("images/GameImage.jpg");
-        gameImageIcon = new ImageIcon(gameImageIcon.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT));
-
-        JLabel gameImageLabel = new JLabel(gameImageIcon);
-        gameImageLabel.setBounds(0, 0, 1280, 720);
-        gamePanel.add(gameImageLabel);
-
-        timerLabel = new JLabel("0");
-        timerLabel.setFont(new Font("TimesRoman", Font.ITALIC, 200));
-        timerLabel.setBounds(760, -90, getWidth(), getHeight());
-        gameImageLabel.add(timerLabel);
-
-        stopButton = new JButton("스탑");
-        stopButton.setBounds(740, 350, 300, 100);
-        gameImageLabel.add(stopButton);
-
-        stopButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                stopGame();
-            }
-        });
-        
-        rewindButton = new JButton("스토리로 돌아가기");
-        rewindButton.setBounds(0, 0, 300, 100);
-        gameImageLabel.add(rewindButton);
         
         rewindButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	remove(gamePanel);
-                main.playFirstGame();
+            	rewind();
             }
         });
 
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                stopGame();
+            }
+        });
         startTime = System.currentTimeMillis();
 
         gameTimer = new Timer(10, new ActionListener() {
@@ -135,9 +71,7 @@ public class TimerGame extends JPanel {
         });
 
         gameTimer.start();
-        
-        
-    } */
+    }
 
     private void stopGame() {
         if (gameTimer != null && gameTimer.isRunning()) {
@@ -150,7 +84,7 @@ public class TimerGame extends JPanel {
                 JOptionPane.showMessageDialog(this, "알람 설정에 성공했습니다!\n총 플레이 타임: " + String.format("%.1f", totalPlaytime) + " 초");
                 main.getFirstScore();
                 remove(gamePanel);
-                main.playSecondGame();
+                clearPanel();
                 
             } else {
             	Object[] options = {"Retry"};
@@ -176,6 +110,26 @@ public class TimerGame extends JPanel {
     public int getScore() {
         return (int) totalPlaytime;
     }
+    
+    private void clearPanel() {   
+    	setVisible(false);
+        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+ 
+        revalidate();
+        repaint();
+        
+        main.playSecondStory();
+	}
+    
+    private void rewind() {
+		setVisible(false);
+        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+ 
+        revalidate();
+        repaint();
+        
+        main.rewind1();
+	}
 
     /* public static void main(String[] args) {
         JFrame frame = new JFrame("알람을 맞춰라!");

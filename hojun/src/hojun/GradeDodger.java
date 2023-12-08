@@ -42,23 +42,26 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		this.width = mainSystem.getWidth();
     	this.height = mainSystem.getHeight();
     	
-    	ImageIcon loadingImageIcon = new ImageIcon("images/gradeDodgerBackground.jpg");
-        loadingImageIcon = new ImageIcon(loadingImageIcon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
-
-        JLabel loadingLabel = new JLabel(loadingImageIcon);
-    
-		setLayout(new BorderLayout());
+    	setLayout(new BorderLayout());
+		ImagePanel imgPanel = new ImagePanel(new ImageIcon("images/gradeDodgerBackground.jpg").getImage());
+		imgPanel.setLayout(null);
 		
-		rewindButton = new JButton("뒤로가기");
-        rewindButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainSystem.rewind();
-            }
-        });
-        add(loadingLabel, BorderLayout.CENTER);
-        //add(rewindButton, BorderLayout.WEST);
+		rewindButton = new JButton();
+		ImageIcon backIcon = new ImageIcon("images/rewind.png");
+		rewindButton.setIcon(backIcon);
+		rewindButton.setBounds(5, 5, 70, 70);
+		add(rewindButton);
+			
+		rewindButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rewind();
+			}
+		});
+		imgPanel.add(rewindButton);
 		
+        add(imgPanel);
+        
 		player = new Player(width/2-30, height -83, 80, 60, 20); // 60, 44, 7 - 플레이어 너비 높이 속도
 		fs = new ArrayList<>();
 		f2s = new ArrayList<>();
@@ -235,7 +238,9 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	    gameOverLabel.setBounds((width-400)/2, (height-80)/2, 400, 80);
 	    add(gameOverLabel);
 	    repaint();
-
+	    
+	    JOptionPane.showMessageDialog(null, "!!!Game Clear!!!");
+	    /*
 	    // timer 사용.
 	    Timer delayTimer = new Timer(3000, new ActionListener() {
 	        @Override
@@ -245,10 +250,12 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	    });
 	    delayTimer.setRepeats(false); // 한번만 실행.
 	    delayTimer.start();
+	    */
 	    
 	    System.out.println("clear in " + (endTime - startTime) + " ms");
 	    System.out.println(getScore());
 	    sendScore();
+	    clearPanel();
 	}
 /*게임 오버 존재 x	
 	private void gameOver() {
@@ -303,7 +310,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		spawnF();
 		spawnF2();
 		spawnF3();
-    	spawnA();
+		spawnA();
         moveFs();
         moveF2s();
         moveF3s();
@@ -379,7 +386,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
         Graphics2D g2d = (Graphics2D) g;
         
         if(gameOn = true) {
-        	Font font = new Font("Arial", Font.BOLD, 20);
+        	Font font = new Font("",Font.BOLD, 80);
         	g2d.setFont(font);  // 폰트 설정.
         
         	g2d.setColor(Color.BLUE);
@@ -406,13 +413,15 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
         	}
         
         	g2d.setColor(Color.green);
-        	g2d.drawString("point : " + point, 30, 50);
+        	g2d.drawString("기말고사 점수 : " + point, 265, 100);
         }else {
-        	Font font = new Font("Bradley Hand", Font.PLAIN, 50);
+        	Font font = new Font("Mistral", Font.PLAIN, 50);
         	g2d.setFont(font);
         	g2d.setColor(new Color(25, 77, 51));
         	g2d.drawString("!!! GAME CLEAR !!!",(width-400)/2, (height-80)/2);
-        }   
+        }
+        
+        
     }
     
     private void clearPanel() {   
@@ -422,7 +431,16 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
         revalidate();
         repaint();
         
-        mainSystem.operateRankingSystem();
+        mainSystem.operateRankingSystem(true);
+	}
+    private void rewind() {
+		setVisible(false);
+        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+ 
+        revalidate();
+        repaint();
+        
+        mainSystem.rewind7();
 	}
 	
 }
