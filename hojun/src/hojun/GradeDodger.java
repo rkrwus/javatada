@@ -408,13 +408,11 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
         	g2d.setColor(Color.green);
         	g2d.drawString("point : " + point, 30, 50);
         }else {
-        	Font font = new Font("Mistral", Font.PLAIN, 50);
+        	Font font = new Font("Bradley Hand", Font.PLAIN, 50);
         	g2d.setFont(font);
         	g2d.setColor(new Color(25, 77, 51));
         	g2d.drawString("!!! GAME CLEAR !!!",(width-400)/2, (height-80)/2);
-        }
-        
-        
+        }   
     }
     
     private void clearPanel() {   

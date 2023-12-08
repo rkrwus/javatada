@@ -38,8 +38,6 @@ public class MiroGame extends JPanel {
         startPanel = new JPanel(new BorderLayout());
         startPanel.add(loadingLabel, BorderLayout.CENTER);
         startPanel.add(startButton, BorderLayout.SOUTH);
-        startPanel.add(timerLabel, BorderLayout.NORTH);
-
         add(startPanel, BorderLayout.CENTER);
     }
 
