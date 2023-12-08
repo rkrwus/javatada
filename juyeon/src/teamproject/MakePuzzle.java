@@ -14,7 +14,7 @@ public class MakePuzzle extends JPanel {
     private long startTime;
     private long endTime;
     private int timeInSeconds;
-    MainSystem main;
+    //MainSystem main;
    
     public MakePuzzle(MainSystem main) {
     	this.main = main;
