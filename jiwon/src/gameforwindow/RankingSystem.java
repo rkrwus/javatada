@@ -54,8 +54,7 @@ class RankingSystem extends JPanel {
 	}
 
 	void showRanking() {
-//		신규 유저가 포함된 정렬 리스트를 반환받아 JTable 생성 후 랭킹 보여주기(포커스를 신규 유저에?)
-
+//		첫 화면에서 랭킹 조회
 		ArrayList<User> userList = readRankFile("C:\\Temp\\rankFile.txt");
 		rankTable = tabulate(userList);
 		JScrollPane sp = new JScrollPane(rankTable);
@@ -91,8 +90,7 @@ class RankingSystem extends JPanel {
 	}
 
 	void showRanking(User newUser) {
-//		신규 유저가 포함된 정렬 리스트를 반환받아 JTable 생성 후 랭킹 보여주기(포커스를 신규 유저에?)
-
+//		신규 유저가 포함된 랭킹 조회 
 		ArrayList<User> sortList = sortRanking(newUser);
 		rankTable = tabulate(sortList);
 		JScrollPane sp = new JScrollPane(rankTable);
@@ -163,7 +161,6 @@ class RankingSystem extends JPanel {
 	}
 
 	ArrayList<User> readRankFile(String filePath) {
-
 		ArrayList<User> userList = new ArrayList<>();
 
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
