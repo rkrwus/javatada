@@ -25,7 +25,13 @@ public class MainSystem extends JFrame {
 	private int thirdScore = 0;
 	private int fourthScore = 0;
 	private int totalScore = 0;
-
+	
+	public static void main(String[] args) {
+		new MainSystem();
+		BackgroundMusic backgroundMusic = new BackgroundMusic();
+        backgroundMusic.playBackgroundMusic();
+	}
+	
 	public MainSystem() {
 		setTitle("JavaTada JavaTada JavaTada JavaTada JavaTada");
 		setSize(WIDTH, HEIGHT);
@@ -36,12 +42,70 @@ public class MainSystem extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public int getWidth() {
-		return WIDTH;
-	}
-	
-	public int getHeight() {
-		return HEIGHT;
+	void playPanel() {
+		setLayout(new BorderLayout());
+		ImagePanel imgPanel = new ImagePanel(new ImageIcon("images/start.jpg").getImage());
+		imgPanel.setLayout(null);
+
+		JButton playBtn = new JButton("PLAY");
+		playBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
+		playBtn.setForeground(new Color(25, 77, 51));
+		playBtn.setBackground(new Color(240, 248, 255));
+		playBtn.setBounds(WIDTH/2-185, 330, 100, 60);
+		
+		JButton rankBtn = new JButton("RANKING");
+		rankBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
+		rankBtn.setForeground(new Color(25, 77, 51));
+		rankBtn.setBackground(new Color(240, 248, 255));
+		rankBtn.setBounds(WIDTH/2-85, 330, 150, 60);
+//		rankBtn.setBorderPainted(false);
+
+		JButton exitBtn = new JButton("EXIT");
+		exitBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
+		exitBtn.setForeground(new Color(25, 77, 51));
+		exitBtn.setBackground(new Color(240, 248, 255));
+		exitBtn.setBounds(WIDTH/2+65, 330, 100, 60);
+//		exitBtn.setBorderPainted(false);
+		
+		getContentPane().removeAll();
+		imgPanel.add(rankBtn);
+		imgPanel.add(exitBtn);
+		imgPanel.add(playBtn);
+		add(imgPanel);
+
+		playBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("play button pressed");
+				
+				remove(imgPanel);
+				revalidate();
+				repaint();
+
+				playFirstStory();
+			}
+		});
+		
+		rankBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("rank button pressed");
+
+				remove(imgPanel);
+				revalidate();
+				repaint();
+
+				operateRankingSystem(false);
+			}
+		});
+
+		exitBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("exit button pressed");
+				System.exit(1);
+			}
+		});
 	}
 	
 	void playFirstStory() {
@@ -149,37 +213,15 @@ public class MainSystem extends JFrame {
 		fourthScore = game4.getScore();
 		System.out.println("getFourthScore __ ok" + fourthScore);
 	}
-	
-	void rewind1() {
-		playFirstStory();
-	}
-	void rewind2() {
-		playFirstGame();
-	}
-	void rewind3() {
-		playSecondStory();
-	}
-	void rewind4() {
-		playSecondGame();
-	}
-	void rewind5() {
-		playThirdStory();
-	}
-	void rewind6() {
-		playThirdGame();
-	}
-	void rewind7() {
-		playFourthStory();
-	}
-	void rewindToOrigin() {
-		playPanel();
-	}
 
-	void replay() {
-		this.totalScore = 0;
-		playPanel();
-		setVisible(true);
-	}
+	void rewindToOrigin() { playPanel(); }
+	void rewind1() { playFirstStory(); }
+	void rewind2() { playFirstGame(); }
+	void rewind3() { playSecondStory(); }
+	void rewind4() { playSecondGame(); }
+	void rewind5() { playThirdStory(); }
+	void rewind6() { playThirdGame(); }
+	void rewind7() { playFourthStory(); }
 
 	void operateRankingSystem(boolean addNew) {	
 		RankingSystem rs;
@@ -213,77 +255,21 @@ public class MainSystem extends JFrame {
 			System.out.println("score : "+score);
 			return score;
 		}
-
-	void playPanel() {
-		setLayout(new BorderLayout());
-		ImagePanel imgPanel = new ImagePanel(new ImageIcon("images/start.jpg").getImage());
-		imgPanel.setLayout(null);
-
-		JButton playBtn = new JButton("PLAY");
-		playBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
-		playBtn.setForeground(new Color(25, 77, 51));
-		playBtn.setBackground(new Color(240, 248, 255));
-		playBtn.setBounds(WIDTH/2-185, 330, 100, 60);
-		
-		JButton rankBtn = new JButton("RANKING");
-		rankBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
-		rankBtn.setForeground(new Color(25, 77, 51));
-		rankBtn.setBackground(new Color(240, 248, 255));
-		rankBtn.setBounds(WIDTH/2-85, 330, 150, 60);
-//		rankBtn.setBorderPainted(false);
-
-		JButton exitBtn = new JButton("EXIT");
-		exitBtn.setFont(new Font("Mistral", Font.PLAIN, 30));
-		exitBtn.setForeground(new Color(25, 77, 51));
-		exitBtn.setBackground(new Color(240, 248, 255));
-		exitBtn.setBounds(WIDTH/2+65, 330, 100, 60);
-//		exitBtn.setBorderPainted(false);
-		
-		getContentPane().removeAll();
-		imgPanel.add(rankBtn);
-		imgPanel.add(exitBtn);
-		imgPanel.add(playBtn);
-		add(imgPanel);
-
-		playBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("play button pressed");
-				
-				remove(imgPanel);
-				revalidate();
-				repaint();
-
-				playFirstStory();
-			}
-		});
-		
-		rankBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("rank button pressed");
-
-				remove(imgPanel);
-				revalidate();
-				repaint();
-
-				operateRankingSystem(false);
-			}
-		});
-
-		exitBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("exit button pressed");
-				System.exit(1);
-			}
-		});
+	
+	void replay() {
+		this.totalScore = 0;
+		playPanel();
+		setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		new MainSystem();
-		BackgroundMusic backgroundMusic = new BackgroundMusic();
-        backgroundMusic.playBackgroundMusic();
+	public int getWidth() {
+		return WIDTH;
 	}
+	
+	public int getHeight() {
+		return HEIGHT;
+	}
+
+	
 
 }
