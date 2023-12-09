@@ -7,13 +7,6 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.io.*;
-import javax.imageio.ImageIO;
-
 public class MakePuzzle extends JPanel {
     private BufferedImage[][] original = new BufferedImage[3][3];
     private BufferedImage image;
@@ -30,19 +23,19 @@ public class MakePuzzle extends JPanel {
        setLayout(new BorderLayout());
         
        rewindButton = new JButton();
-		ImageIcon backIcon = new ImageIcon("images/rewind.png");
-		rewindButton.setIcon(backIcon);
-		rewindButton.setBounds(5, 5, 70, 70);
+      ImageIcon backIcon = new ImageIcon("images/rewind.png");
+      rewindButton.setIcon(backIcon);
+      rewindButton.setBounds(5, 5, 70, 70);
        add(rewindButton);
-		
+      
        rewindButton.addActionListener(new ActionListener() {
-    	   @Override
-    	   public void actionPerformed(ActionEvent e) {
-    		   rewind();
+          @Override
+          public void actionPerformed(ActionEvent e) {
+             rewind();
             }
         });
-		
-		add(rewindButton);
+      
+      add(rewindButton);
         
         startPuzzleGame();
         
@@ -54,7 +47,7 @@ public class MakePuzzle extends JPanel {
     }
     
     private BufferedImage resize(BufferedImage img) {
-    	BufferedImage resizedImage = new BufferedImage(650, 650, img.getType());
+       BufferedImage resizedImage = new BufferedImage(650, 650, img.getType());
         Graphics2D g2d = resizedImage.createGraphics();
         g2d.drawImage(img, 0, 0, 650, 650, null);
         g2d.dispose();
@@ -80,73 +73,84 @@ public class MakePuzzle extends JPanel {
 
         try {
             loadImage("images/puzzle.png");
+            BufferedImage backgroundImage = ImageIO.read(new File("images/background.png"));
+
+            JPanel puzzlePanel = new JPanel() {
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+
+                    if (backgroundImage != null) {
+                        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                    }
+
+                    int width = image.getWidth() / 6;
+                    int height = image.getHeight() / 6;
+                    int x = (getWidth() - width * 3) / 2;
+                    int y = (getHeight() - height* 7/2);
+
+                    for (int i = 0; i < 3; i++) {//퍼즐을 화면에 그림
+                        for (int j = 0; j < 3; j++) {
+                            g.drawImage(original[i][j], x, y, width, height, this);
+                            x += width;
+                        }
+                        x = (getWidth() - width * 3) / 2;
+                        y += height;
+                    }
+                }
+            };
+            add(puzzlePanel, BorderLayout.CENTER);
+
+            image = resize(image);
+
+            BufferedImage[][] temp = createSubImages(image);
+            int[] randomNumbers = generateRandomArray();
+            int count = 0;
+
+            for (int i = 0; i < 3; i++) { // 이미지 랜덤 변수로 섞기
+                for (int j = 0; j < 3; j++) {
+                    original[i][j] = temp[randomNumbers[count] / 3][randomNumbers[count] % 3];
+                    count++;
+                }
+            }
+
+            startTime = System.currentTimeMillis();
+
+            JPanel inputPanel = new JPanel();
+            inputPanel.setPreferredSize(new Dimension(80, 80));
+            JLabel label = new JLabel("메모의 정답(특수기호 제외):");
+            textField = new JTextField(30);
+            textField.setPreferredSize(new Dimension(30, 30));
+            label.setFont(new Font("Aial", Font.PLAIN, 30));
+            JButton submitButton = new JButton("정답 제출");
+
+            submitButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String inputText = textField.getText();
+                    inputText = inputText.replaceAll(" ", "");
+                    if (inputText.equals("김화정교수님사랑합니다")) {
+                        checkAnswerAndCalculateTime();
+                        JOptionPane.showMessageDialog(null, "정답입니다람쥐.");
+                        main.getThirdScore();
+                        clearPanel();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "틀렸습니다. 다시 시도해주세요.");
+                    }
+                }
+            });
+
+            inputPanel.add(label);
+            inputPanel.add(textField);
+            inputPanel.add(submitButton);
+            add(inputPanel, BorderLayout.NORTH);
+
+            revalidate();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        image = resize(image);
 
-        BufferedImage[][] temp = createSubImages(image);
-        int[] randomNumbers = generateRandomArray();
-        int count = 0;
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                original[i][j] = temp[randomNumbers[count] / 3][randomNumbers[count] % 3];
-                count++;
-            }
         }
 
-        JPanel puzzlePanel = new JPanel() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                int width = image.getWidth() / 3;
-                int height = image.getHeight() / 3;
-                int x = (getWidth() - width * 3) / 2;
-                int y = (getHeight() - height * 3) / 2;
-
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        g.drawImage(original[i][j], x, y, width, height, this);
-                        x = x + width;
-                    }
-                    x = (getWidth() - width * 3) / 2;
-                    y += height;
-                }
-            }
-        };
-        add(puzzlePanel, BorderLayout.CENTER);
-
-        JPanel inputPanel = new JPanel();
-        inputPanel.setPreferredSize(new Dimension(80,80));
-        JLabel label = new JLabel("메모의 정답(특수기호, 띄어쓰기 제외):");
-        textField = new JTextField(30);
-        textField.setPreferredSize(new Dimension(30, 30));
-        label.setFont(new Font("Aial", Font.PLAIN,30));
-        JButton submitButton = new JButton("정답 제출");
-        
-
-        submitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String inputText = textField.getText();
-                if (inputText.equals("김화정교수님사랑합니다")) {
-                    checkAnswerAndCalculateTime();
-                    JOptionPane.showMessageDialog(null, "정답입니다람쥐.");
-                   main.getThirdScore();
-                   clearPanel();
-                } else {
-                    JOptionPane.showMessageDialog(null, "틀렸습니다. 다시 시도해주세요.");
-                }
-            }
-        });
-
-        inputPanel.add(label);
-        inputPanel.add(textField);
-        inputPanel.add(submitButton);
-        add(inputPanel, BorderLayout.NORTH);
-
-        startTime = System.currentTimeMillis();
-
-        revalidate();
+       
+       
     }
 
     private void checkAnswerAndCalculateTime() {
@@ -191,21 +195,21 @@ public class MakePuzzle extends JPanel {
         });
     } */
     private void clearPanel() {   
-    	setVisible(false);
+       setVisible(false);
         removeAll(); // GradDodger의 모든 컴포넌트 삭제.
  
         revalidate();
         repaint();
         
         main.playFourthStory();
-	}
+   }
     private void rewind() {
-		setVisible(false);
+      setVisible(false);
         removeAll(); // GradDodger의 모든 컴포넌트 삭제.
  
         revalidate();
         repaint();
         
         main.rewind5();
-	}
+   }
 }
