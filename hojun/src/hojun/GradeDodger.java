@@ -262,11 +262,6 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	@Override
     public void actionPerformed(ActionEvent e) {
 		timerCounter++;
-		
-		if(timerCounter %50 == 0) {
-			spawnF();
-			spawnA();
-		}
         update();
     }
 	
