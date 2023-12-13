@@ -53,20 +53,16 @@ public class TimerStory extends JPanel{
 	
 	private void startGame() {
 		setVisible(false);
-        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
- 
+        removeAll(); 
         revalidate();
         repaint();
-        
         main.playFirstGame();
 	}
 	private void rewind() {
 		setVisible(false);
-        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
- 
+        removeAll();
         revalidate();
         repaint();
-        
         main.rewindToOrigin();
 	}
 	

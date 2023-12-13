@@ -117,7 +117,7 @@ public class MakePuzzle extends JPanel {
 
             JPanel inputPanel = new JPanel();
             inputPanel.setPreferredSize(new Dimension(80, 80));
-            JLabel label = new JLabel("메모의 정답(특수기호 제외):");
+            JLabel label = new JLabel("편지에 적힌 글자:");
             textField = new JTextField(30);
             textField.setPreferredSize(new Dimension(30, 30));
             label.setFont(new Font("Aial", Font.PLAIN, 30));

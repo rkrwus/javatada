@@ -113,7 +113,7 @@ public class TimerGame extends JPanel {
     
     private void clearPanel() {   
     	setVisible(false);
-        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+        removeAll();
  
         revalidate();
         repaint();
@@ -123,7 +123,7 @@ public class TimerGame extends JPanel {
     
     private void rewind() {
 		setVisible(false);
-        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+        removeAll();
  
         revalidate();
         repaint();

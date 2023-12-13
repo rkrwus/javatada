@@ -54,7 +54,7 @@ public class PuzzleStory extends JPanel{
 	}
 	private void startGame() {
 		setVisible(false);
-        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+        removeAll(); 
  
         revalidate();
         repaint();
@@ -63,8 +63,7 @@ public class PuzzleStory extends JPanel{
 	}
 	private void rewind() {
 		setVisible(false);
-        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
- 
+        removeAll(); 
         revalidate();
         repaint();
         
