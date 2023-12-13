@@ -18,7 +18,6 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	public boolean gameOn = false;
 	
 	MainSystem mainSystem;
-	//private ExpAll.ExplosionManager em = new ExpAll.ExplosionManager();
 	
 	private JButton rewindButton;
 	
@@ -189,7 +188,6 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		Rectangle playerBounds = player.getBounds();
 		for(FGrade f : fs) {
 			if(playerBounds.intersects(f)) {
-				//em.makeExplosion(f.x, f.y);
 				fs.remove(f);
 				point -= 10;
 				break;
@@ -201,7 +199,6 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		Rectangle playerBounds = player.getBounds();
 		for(FGrade f2 : f2s) {
 			if(playerBounds.intersects(f2)) {
-				//em.makeExplosion(f2.x, f2.y);
 				f2s.remove(f2);
 				point -= 10;
 				break;
@@ -214,7 +211,6 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		Rectangle playerBounds = player.getBounds();
 		for(FGrade f3 : f3s) {
 			if(playerBounds.intersects(f3)) {
-				//em.makeExplosion(f3.x, f3.y);
 				f3s.remove(f3);
 				point -= 10;
 				break;
@@ -240,72 +236,13 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	    repaint();
 	    
 	    JOptionPane.showMessageDialog(null, "!!!Game Clear!!!");
-	    /*
-	    // timer 사용.
-	    Timer delayTimer = new Timer(3000, new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            clearPanel();
-	        }
-	    });
-	    delayTimer.setRepeats(false); // 한번만 실행.
-	    delayTimer.start();
-	    */
 	    
 	    System.out.println("clear in " + (endTime - startTime) + " ms");
 	    System.out.println(getScore());
 	    sendScore();
 	    clearPanel();
 	}
-/*게임 오버 존재 x	
-	private void gameOver() {
-	    endTime = System.currentTimeMillis();
-	    gameTimer.stop();
-	    
-	    /*      ---------------- label 출력 안됌으로 인해 사용 x -----------------------     
-	    try{
-	    	JLabel gameOverLabel = new JLabel("!!!GAME OVER!!!");
-	    	Font font = new Font("Arial", Font.BOLD, 40);
-	        gameOverLabel.setFont(font);
-	        gameOverLabel.setBounds((WIDTH-400)/2, (HEIGHT-80)/2, 400, 80);
-	        add(gameOverLabel);
-	        repaint();
-	        
-	    	System.out.println("game over!!");
-	    	
-	    	Thread.sleep(3000);
-	    }catch (InterruptedException e) {
-	    	e.printStackTrace();
-	    }
-	    */
-/*	    
-	    JLabel gameOverLabel = new JLabel("!!!GAME OVER!!!");
-	    Font font = new Font("Arial", Font.BOLD, 40);
-	    gameOverLabel.setFont(font);
-	    gameOverLabel.setBounds((width-400)/2, (height-80)/2, 400, 80);
-	    add(gameOverLabel);
-	    repaint();
 
-	    // Thread.sleep 대신 timer 사용.
-	    Timer delayTimer = new Timer(3000, new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            clearPanel();
-	        }
-	    });
-	    delayTimer.setRepeats(false); // 한번만 실행.
-	    delayTimer.start();
-	    
-	    System.out.println((endTime - startTime) + " ms");
-	    System.out.println(getScore());
-	    
-	    sendScore();
-	    
-	    gameOn = false;
-
-	    //clearPanel();
-	}
-*/	
 	private void update() {
 		spawnF();
 		spawnF2();
@@ -319,14 +256,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
         collideF2s();
         collideF3s();
         collectAs();
-        //em.move();
         repaint();
     }
-	
-	private void drawExplosions(Graphics g) {
-	        //em.draw(g); // Use the new ExplosionManager to draw explosions
-	}
-
 	
 	@Override
     public void actionPerformed(ActionEvent e) {
@@ -359,7 +290,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
     
     private void loadImages() {
         try {
-        	 // Print the URLs to the console --> 경로 확인용
+        	 // url 출력 --> 경로 확인용
         	System.out.println("player.jpg URL: " + getClass().getResource("/player.jpg"));
             System.out.println("f.png URL: " + getClass().getResource("/f.png"));
             System.out.println("a.png URL: " + getClass().getResource("/a.png"));
@@ -368,15 +299,8 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
             fImage = ImageIO.read(getClass().getResource("/f.png"));
             aImage = ImageIO.read(getClass().getResource("/a.png"));
         } catch (Exception e) {
-            e.printStackTrace(); // print error message
+            e.printStackTrace(); // 에러메세지 출력--->
         }
-    }
-    
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        drawExplosions(g);
-        // ... (your existing drawing code)
     }
 
     @Override
@@ -427,7 +351,6 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
     private void clearPanel() {   
     	setVisible(false);
         removeAll(); // GradDodger의 모든 컴포넌트 삭제.
- 
         revalidate();
         repaint();
         
@@ -436,11 +359,9 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
     private void rewind() {
 		setVisible(false);
         removeAll(); // GradDodger의 모든 컴포넌트 삭제.
- 
         revalidate();
         repaint();
         
         mainSystem.rewind7();
 	}
-	
 }

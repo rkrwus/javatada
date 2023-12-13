@@ -59,7 +59,7 @@ public class GradeDodgerStory extends JPanel{
 	
 	private void startGame() {
 		setVisible(false);
-        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+        removeAll(); // GradDodgerStory의 모든 컴포넌트 삭제.
  
         revalidate();
         repaint();
@@ -68,12 +68,11 @@ public class GradeDodgerStory extends JPanel{
 	}
 	private void rewind() {
 		setVisible(false);
-        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+        removeAll(); // GradDodgerStory의 모든 컴포넌트 삭제.
  
         revalidate();
         repaint();
         
         mainSystem.rewind6();
 	}
-
 }
