@@ -51,7 +51,7 @@ public class MiroStory extends JPanel{
 	}
 	private void startGame() {
 		setVisible(false);
-        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+        removeAll(); // 미로게임의 모든 컴포넌트 삭제.
  
         revalidate();
         repaint();
@@ -60,7 +60,7 @@ public class MiroStory extends JPanel{
 	}
 	private void rewind() {
 		setVisible(false);
-        removeAll(); // GradDodger의 모든 컴포넌트 삭제.
+        removeAll(); // 미로게임의 모든 컴포넌트 삭제.
  
         revalidate();
         repaint();

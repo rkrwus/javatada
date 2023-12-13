@@ -182,18 +182,6 @@ public class MakePuzzle extends JPanel {
         return randomNumbers;
     }
     
-
-   /* public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                JFrame frame = new JFrame("Puzzle");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(1250, 720);
-                frame.add(new MakePuzzle());
-                frame.setVisible(true);
-            }
-        });
-    } */
     private void clearPanel() {   
        setVisible(false);
         removeAll(); // GradDodger의 모든 컴포넌트 삭제.

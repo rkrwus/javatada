@@ -130,14 +130,4 @@ public class TimerGame extends JPanel {
         
         main.rewind1();
 	}
-
-    /* public static void main(String[] args) {
-        JFrame frame = new JFrame("알람을 맞춰라!");
-        frame.setSize(2560, 1440);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        TimerGame timerGame = new TimerGame();
-        frame.add(timerGame);
-        frame.setVisible(true);
-    } */
 }

@@ -31,8 +31,6 @@ public class MiroGame extends JPanel {
     	this.main = main;
     	this.width = main.getWidth();
     	this.height = main.getHeight();
-        
-    	//"images/map.jpg"
     	
     	rewindButton = new JButton();
 		ImageIcon backIcon = new ImageIcon("images/rewind.png");
@@ -184,15 +182,4 @@ public class MiroGame extends JPanel {
         
         main.rewind3();
 	}
-
- /* public static main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setTitle("바뀐 시험장으로 찾아가자!");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(2560, 1440);
-
-        MiroGame miroGame = new MiroGame();
-        frame.add(miroGame);
-        frame.setVisible(true);
-    } */
 }
