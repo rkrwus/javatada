@@ -11,22 +11,15 @@ import java.util.Random;
 public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	private int width;
 	private int height;
-	
-	private int fieldWidth = 800;
+	private int fieldWidth = 800;  // a와 f가 떨어지는 게임 필드
 	private int fieldheight = 700;
-	
-	public boolean gameOn = false;
-	
 	MainSystem mainSystem;
-	//private ExpAll.ExplosionManager em = new ExpAll.ExplosionManager();
-	
 	private JButton rewindButton;
-	
 	private Player player; 
-	private List<FGrade> fs;
-	private List<FGrade> f2s;
-	private List<FGrade> f3s;// (f의 높이 너비 좌표값)의 리스트
-	private List<AGrade> as; // fs 와 동일
+	private List<FGrade> fs; // 기본 f
+	private List<FGrade> f2s;// 느린 f
+	private List<FGrade> f3s;// 빠른 f (f의 높이 너비 좌표값)의 리스트
+	private List<AGrade> as; // a - fs 와 동일
 	private Timer gameTimer;   // 게임타이머
 	private int timerCounter;  // 카운터
 	private long startTime;    // 시간 계산용
@@ -36,6 +29,7 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 	private Image aImage;
 	private Image plImage;
 	private Image bgImage;
+	private boolean gameOn = false;
 	
 	public GradeDodger(MainSystem mainSystem) {		
 		this.mainSystem = mainSystem;
@@ -70,7 +64,6 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
 		gameTimer = new Timer(10, this); // 10 millisec 딜레이
 		timerCounter = 0;
 		point = 0;
-		gameOn = true;
 		
 		loadImages();
 		
@@ -360,11 +353,11 @@ public class GradeDodger extends JPanel implements ActionListener, KeyListener{
     private void loadImages() {
         try {
         	 // Print the URLs to the console --> 경로 확인용
-        	System.out.println("player.jpg URL: " + getClass().getResource("/player.jpg"));
+        	System.out.println("player.jpg URL: " + getClass().getResource("/player.png"));
             System.out.println("f.png URL: " + getClass().getResource("/f.png"));
             System.out.println("a.png URL: " + getClass().getResource("/a.png"));
         	
-            plImage = ImageIO.read(getClass().getResource("/player.jpg"));
+            plImage = ImageIO.read(getClass().getResource("/player.png"));
             fImage = ImageIO.read(getClass().getResource("/f.png"));
             aImage = ImageIO.read(getClass().getResource("/a.png"));
         } catch (Exception e) {

@@ -254,7 +254,7 @@ public class MainSystem extends JFrame {
 				revalidate();
 				repaint();
 
-				playFirstStory();
+				playFourthStory();
 			}
 		});
 		
